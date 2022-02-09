@@ -93,7 +93,8 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 
 ###User Stories:
 
-* As a user, I want to be able to create a new bingo board project. 
-* As a user, I want to be able to add a new string, an arbitrary number of times, to the bingo board item list.
-* As a user, I want to be able to remove a string from the bingo board item list.
-* As a user, I want to be able to generate a bingo board from a selection of the items in the bingo board item list.
+* As a user, I want to be able to add an arbitrary number of items to my bingo board list.
+* As a user, I want to be able to rename the title and description of my item. 
+* As a user, I want to be able to toggle favourite status of my item.
+* As a user, I want to be able to reduce the number of points an item is worth based on how many times it has been 
+  found.
