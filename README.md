@@ -1,6 +1,6 @@
 # My Personal Project
 
-## A Custom Bingo Game
+## A Custom bingo Game
 
 ---
 ### What will the application do?
@@ -39,7 +39,7 @@ to mobile devices (ex. Android).
 
 ### Why is this project of interest to you?
 
-This application is based off an idea for a "Dog Spotting Bingo" game I played with a friend. We thought it 
+This application is based off an idea for a "Dog Spotting bingo" game I played with a friend. We thought it 
 would be an entertaining way to keep in touch throughout the school year. In the original design, we made an image 
 file for the board, and we would update the board using the image editing "pen" tool in messaging apps. When someone 
 would "spot" a dog, they would send a photo to the other person and mark off that breed on the board. Eventually it 
@@ -72,8 +72,8 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
   _Glaucous-winged Gull_, etc.)
 - Spotting the makes / models / colors of vehicles driving by on the highway or past a certain location
 
-<sup>3</sup> - Example games include basic BINGO rules (completing a row, column or diagonal) or blackout BINGO 
-(completing the entire board). At first, the game will only include a blackout BINGO option.
+<sup>3</sup> - Example games include basic bingo rules (completing a row, column or diagonal) or blackout bingo 
+(completing the entire board). At first, the game will only include a blackout bingo option.
 
 <sup>4</sup> - A few "Prediction Based Board" examples include:
 - Events that will occur during an election (ex. "Party X will win electoral district Y", "Candidate P will be 
@@ -92,3 +92,8 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 &nbsp;
 
 ###User Stories:
+
+* As a user, I want to be able to create a new bingo board project. 
+* As a user, I want to be able to add a new string, an arbitrary number of times, to the bingo board item list.
+* As a user, I want to be able to remove a string from the bingo board item list.
+* As a user, I want to be able to generate a bingo board from a selection of the items in the bingo board item list.
