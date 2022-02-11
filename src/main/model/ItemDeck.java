@@ -1,20 +1,19 @@
 package model;
 
-import java.util.HashSet;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class ItemDeck {
     ArrayList<Item> itemList;
 
-    private static final int REQ_TEST_BOARD = 5;
-    private static final int REQ_SIZE_5_5_YES_FREE = 24;
-    private static final int REQ_SIZE_5_5_NO_FREE = 25;
-
-    //TODO: find a way to make one method to test any of the preset board sizes at top
+//    private static final int REQ_TEST_BOARD = 5;
+//    private static final int REQ_SIZE_5_5_YES_FREE = 24;
+//    private static final int REQ_SIZE_5_5_NO_FREE = 25;
+//  TODO: find a way to make one method to test any of the preset board sizes at top
 
 
     public ItemDeck() {
-        itemList = new ArrayList<Item>();
+        itemList = new ArrayList<>();
     }
 
     //REQUIRES: item with matching title must not already be in list
@@ -52,7 +51,7 @@ public class ItemDeck {
 
     //EFFECTS: checks if the item is in the deck based on title input
     public boolean containsItemTitle(String title) {
-        for (Item i: itemList) {
+        for (Item i : itemList) {
             if (i.getTitle().equals(title)) {
                 return true;
             }
@@ -60,16 +59,16 @@ public class ItemDeck {
         return false;
     }
 
-    //EFFECTS: if item with title exists, removes the item, else do nothing
-    public void removeItemTitle(String title) {
-        for (Item i: itemList) {
-            if (i.getTitle().equals(title)) {
-                removeItem(i);
-            } else {
-                ;
-            }
-        }
-    }
+//    //EFFECTS: if item with title exists, removes the item, else do nothing
+//    public void removeItemTitle(String title) {
+//        for (Item i: itemList) {
+//            if (i.getTitle().equals(title)) {
+//                removeItem(i);
+//            } else {
+//                ;
+//            }
+//        }
+//    }
 
     //REQUIRES: there are one or more items in the deck
     //EFFECTS: returns a string representation of item titles, separated by commas.
@@ -77,7 +76,7 @@ public class ItemDeck {
         String titles = "";
         int count = itemList.size();
         if (itemList.size() == 1) {
-            for (Item i: itemList) {
+            for (Item i : itemList) {
                 titles += "\"" + i.getTitle() + "\"" + ".";
             }
         } else {
@@ -106,26 +105,46 @@ public class ItemDeck {
         return null;
     }
 
-    public void renameTitleFromTitle(String oldTitle, String newTitle) {
-        Item i = getItemFromTitle(oldTitle);
-        i.renameTitle(newTitle);
-    }
-
+    //REQUIRES: item must exist in list
+    //MODIFIES: item in this with matching title
+    //EFFECTS: renames the item in this with matching title, with inputted description
     public void renameDescriptionFromTitle(String title, String description) {
         Item i = getItemFromTitle(title);
         i.renameDescription(description);
     }
 
+    //REQUIRES: item must exist in list
+    //MODIFIES: item in this with matching title
+    //EFFECTS: returns the description of the item in this with matching title
+    public String getDescriptionFromTitle(String title) {
+        Item i = getItemFromTitle(title);
+        String description = i.getDescription();
+        if (Objects.equals(description, "")) {
+            return "This item does not have a description.";
+        } else {
+            return "\"" + title + "\" currently has the following description:\n \"" + description + "\"";
+        }
+    }
+
+    //REQUIRES: item must exist in list
+    //MODIFIES: item in this with matching title
+    //EFFECTS: edits the pointsWorth value of the item in this with matching title, with inputted points
     public void editPointsFromTitle(String title, int points) {
         Item i = getItemFromTitle(title);
         i.editPoints(points);
     }
 
+    //REQUIRES: item must exist in list
+    //MODIFIES: item in this with matching title
+    //EFFECTS: toggles the favourite status of the item in this with matching title
     public void toggleFavouriteFromTitle(String title) {
         Item i = getItemFromTitle(title);
         i.toggleFavourite();
     }
 
+    //REQUIRES: item must exist in list
+    //MODIFIES: item in this with matching title
+    //EFFECTS: gets the favourite status of the item in this with matching title
     public Boolean getFavouriteFromTitle(String title) {
         Item i = getItemFromTitle(title);
         return i.isFavourite();
@@ -135,6 +154,4 @@ public class ItemDeck {
     //      - number of items
     //      - number of items with descriptions
     //      - number of items with images (if we add images)
-
-
 }

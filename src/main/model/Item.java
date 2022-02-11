@@ -3,7 +3,6 @@ package model;
 // Represents an item having a unique id, title, description, and play-count.
 
 public class Item {
-    private static final String BLANK_PHRASE = "There is no description yet, but you may enter one.";
     private static final int HARD_WORTH = 200;
     private static final int MED_WORTH = 100;
     private static final int EASY_WORTH = 50;
@@ -15,7 +14,7 @@ public class Item {
     private String title;           // the title of the item card
     private String description;     // the item's description field value (optional)
     private int usedCount;          // counts # of times item was used, starts at 0
-    private int foundCount;          // counts # of times item was played, starts at 0
+//    private int foundCount;          // counts # of times item was played, starts at 0
     private int pointsWorth;
     private Boolean isFavourite;      // toggle to select item as a favourite
 
@@ -29,9 +28,9 @@ public class Item {
     public Item(String itemTitle) {
         id = nextItemId++;
         title = itemTitle;
-        description = BLANK_PHRASE;
+        description = "";
         usedCount = 0;
-        foundCount = 0;
+//        foundCount = 0;
         pointsWorth = MED_WORTH;
         isFavourite = false;
     }
@@ -56,10 +55,10 @@ public class Item {
         return usedCount;
     }
 
-    // EFFECTS: returns the count of how many times the item has been found
-    public int getFoundCount() {
-        return foundCount;
-    }
+//    // EFFECTS: returns the count of how many times the item has been found
+//    public int getFoundCount() {
+//        return foundCount;
+//    }
 
     // EFFECTS: returns the number of points that an item is worth
     public int getPointsWorth() {
@@ -70,8 +69,6 @@ public class Item {
     public Boolean isFavourite() {
         return isFavourite;
     }
-
-
 
     /*
      * REQUIRES: newTitle has length > 0
@@ -121,6 +118,4 @@ public class Item {
     public void toggleFavourite() {
         isFavourite = !isFavourite;
     }
-
-    //TODO: method to return a string representation of item?
 }

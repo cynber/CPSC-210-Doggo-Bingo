@@ -23,36 +23,36 @@ class ItemTest {
 
     @Test
     public void testRenameItem() {
-        assertEquals(testItem1.getTitle(),"title1");
+        assertEquals(testItem1.getTitle(), "title1");
         testItem1.renameTitle("New Title 1");
-        assertEquals(testItem1.getTitle(),"New Title 1");
+        assertEquals(testItem1.getTitle(), "New Title 1");
     }
 
     @Test
     public void testRenameDescription() {
-        assertEquals(testItem1.getDescription(),"There is no description yet, but you may enter one.");
+        assertEquals(testItem1.getDescription(), "");
         testItem1.renameDescription("New description.");
-        assertEquals(testItem1.getDescription(),"New description.");
+        assertEquals(testItem1.getDescription(), "New description.");
     }
 
     @Test
     public void testUseItem() {
-        assertEquals(testItem1.getUsedCount(),0);
+        assertEquals(testItem1.getUsedCount(), 0);
         testItem1.useItem(1);
-        assertEquals(testItem1.getUsedCount(),1);
+        assertEquals(testItem1.getUsedCount(), 1);
         testItem1.useItem(3);
-        assertEquals(testItem1.getUsedCount(),4);
+        assertEquals(testItem1.getUsedCount(), 4);
     }
 
     @Test
     public void testEditPoints() {
-        assertEquals(testItem1.getPointsWorth(),100);
+        assertEquals(testItem1.getPointsWorth(), 100);
         testItem1.editPoints(1);
-        assertEquals(testItem1.getPointsWorth(),50);
+        assertEquals(testItem1.getPointsWorth(), 50);
         testItem1.editPoints(3);
-        assertEquals(testItem1.getPointsWorth(),200);
+        assertEquals(testItem1.getPointsWorth(), 200);
         testItem1.editPoints(2);
-        assertEquals(testItem1.getPointsWorth(),100);
+        assertEquals(testItem1.getPointsWorth(), 100);
     }
 
     @Test
@@ -66,8 +66,8 @@ class ItemTest {
 
     @Test
     public void testGetId() {
-        assertEquals(testItem1.getId(),1);
-        assertEquals(testItem2.getId(),2);
+        assertEquals(testItem1.getId(), 1);
+        assertEquals(testItem2.getId(), 2);
     }
 
 }

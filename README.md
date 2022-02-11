@@ -93,8 +93,8 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 
 ###User Stories:
 
-* As a user, I want to be able to add an arbitrary number of items to my bingo board list.
-* As a user, I want to be able to rename the title and description of my item. 
-* As a user, I want to be able to toggle favourite status of my item.
+* As a user, I want to be able to add an arbitrary number of items to my bingo board deck.
+* As a user, I want to be able to be able to edit the description of each item.
+* As a user, I want to be able to toggle favourite status of each item.
 * As a user, I want to edit the number of points an item is worth based on difficulty (3 levels).
-* As a user, I want to know when enough items have been added to make a board.
+* As a user, I want to be able to view the titles of the items added so far. 
