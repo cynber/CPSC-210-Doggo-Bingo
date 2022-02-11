@@ -1,5 +1,9 @@
 package model;
 
+// Represents a deck of items that can be used to build a Bingo board
+// created with assistance from TellerApp:
+//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
 import java.util.ArrayList;
 import java.util.Objects;
 

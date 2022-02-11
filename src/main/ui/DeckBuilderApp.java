@@ -1,5 +1,9 @@
 package ui;
 
+// represents a console based interface that users can use to build decks
+// created with assistance from TellerApp:
+//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
 import model.Item;
 import model.ItemDeck;
 

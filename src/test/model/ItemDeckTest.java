@@ -1,5 +1,9 @@
 package model;
 
+// tests for Item
+// created with assistance from TellerApp:
+//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

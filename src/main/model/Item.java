@@ -1,6 +1,8 @@
 package model;
 
 // Represents an item having a unique id, title, description, and play-count.
+// created with assistance from TellerApp:
+//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
 public class Item {
     private static final int HARD_WORTH = 200;
