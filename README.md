@@ -3,6 +3,14 @@
 ## A Custom bingo Game
 
 ---
+
+**References:**
+
+Main and DeckBuilderApp were created with assistance from TellerApp
+* https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
+---
+
 ### What will the application do?
 
 This application will let users generate custom bingo boards to then play by themselves or against friends. Users 
