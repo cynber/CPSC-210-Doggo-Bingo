@@ -132,6 +132,8 @@ public class ItemDeckTest {
         assertEquals(testDeck2.getDescriptionFromTitle("title1"), "This item does not have a description.");
         testDeck2.renameDescriptionFromTitle("title1", "TESTS");
         assertEquals(item1.getDescription(), "TESTS");
+        assertEquals(testDeck2.getDescriptionFromTitle("title1"), "\"title1\" currently has the following description:\n" +
+                " \"TESTS\"");
     }
 
     @Test

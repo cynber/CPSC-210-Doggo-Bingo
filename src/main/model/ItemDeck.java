@@ -99,14 +99,13 @@ public class ItemDeck {
     //REQUIRES: item must exist in list
     //EFFECTS: returns the item with the matching title
     public Item getItemFromTitle(String title) {
+        Item item = new Item("");
         for (Item i : itemList) {
             if (i.getTitle().equals(title)) {
-                return i;
-            } else {
-                return null;
+                item = i;
             }
         }
-        return null;
+        return item;
     }
 
     //REQUIRES: item must exist in list
