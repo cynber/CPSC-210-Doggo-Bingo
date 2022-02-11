@@ -2,13 +2,11 @@ package model;
 
 // Represents an item having a unique id, title, description, and play-count.
 
-import java.util.Objects;
-
 public class Item {
     private static final String BLANK_PHRASE = "There is no description yet, but you may enter one.";
-    private static final int STARTING_WORTH = 200;
-    private static final int DIMINISH_BY = 10;
-    private static final int MIN_WORTH = (STARTING_WORTH /2);
+    private static final int HARD_WORTH = 200;
+    private static final int MED_WORTH = 100;
+    private static final int EASY_WORTH = 50;
 
     private static int nextItemId = 1;  // tracks id of the next item created
     //TODO: Check how nextItemId works
@@ -19,60 +17,58 @@ public class Item {
     private int usedCount;          // counts # of times item was used, starts at 0
     private int foundCount;          // counts # of times item was played, starts at 0
     private int pointsWorth;
-    private Boolean favourite;      // toggle to select item as a favourite
+    private Boolean isFavourite;      // toggle to select item as a favourite
 
     /*
     * REQUIRES: no other items have the same title
     * EFFECTS:  item id is a positive integer not yet assigned to any other item;
                 title of item is set to itemTitle;
-                if description has a non-zero length, then description is set to
-                  itemDescription, otherwise itemDescription is set to blankPhrase;
-                playCount is set to 0;
+                description is set to the BLANK_PHRASE
                 favourite is set to FALSE;
      */
-    public Item(String itemTitle, String itemDescription) {
+    public Item(String itemTitle) {
         id = nextItemId++;
         title = itemTitle;
-        if (Objects.equals(itemDescription, "")) {
-
-            description = BLANK_PHRASE;
-        } else {
-            description = itemDescription;
-        }
+        description = BLANK_PHRASE;
         usedCount = 0;
         foundCount = 0;
-        pointsWorth = STARTING_WORTH;
-        favourite = false;
-
-        //TODO: find out how to properly check a string's length
+        pointsWorth = MED_WORTH;
+        isFavourite = false;
     }
 
+    // EFFECTS: returns the id
     public int getId() {
         return id;
     }
 
+    // EFFECTS: returns the title
     public String getTitle() {
         return title;
     }
 
+    // EFFECTS: returns the description
     public String getDescription() {
         return description;
     }
 
+    // EFFECTS: returns the count of how many times the item has been used
     public int getUsedCount() {
         return usedCount;
     }
 
+    // EFFECTS: returns the count of how many times the item has been found
     public int getFoundCount() {
         return foundCount;
     }
 
+    // EFFECTS: returns the number of points that an item is worth
     public int getPointsWorth() {
         return pointsWorth;
     }
 
-    public Boolean getFavourite() {
-        return favourite;
+    // EFFECTS: returns true if the item is marked as a favourite, else false
+    public Boolean isFavourite() {
+        return isFavourite;
     }
 
 
@@ -105,23 +101,25 @@ public class Item {
     }
 
     /*
-     * REQUIRES: timesFound >= 1
+     * REQUIRES: points must be an integer 1, 2, or 3
      * MODIFIES: this
-     * EFFECTS: increments foundCount by timesFound;
-                decreases pointsWorth by (diminishBy * timesFound),
-                  doesn't decrease past minWorth
+     * EFFECTS: changes the pointsWorth value to EASY_WORTH,
+       MED_WORTH, or HARD_WORTH for 1, 2, or 3 respectively
      */
-    public void findItem(int timesFound) {
-        foundCount += timesFound;
-        if (pointsWorth >= (MIN_WORTH + (DIMINISH_BY * timesFound))) {
-            pointsWorth -= (DIMINISH_BY * timesFound);
+    public void editPoints(int points) {
+        if (points == 1) {
+            pointsWorth = EASY_WORTH;
         } else {
-            pointsWorth = MIN_WORTH;
+            if (points == 2) {
+                pointsWorth = MED_WORTH;
+            } else {
+                pointsWorth = HARD_WORTH;
+            }
         }
     }
 
     public void toggleFavourite() {
-        favourite = !favourite;
+        isFavourite = !isFavourite;
     }
 
     //TODO: method to return a string representation of item?
