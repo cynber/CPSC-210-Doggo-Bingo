@@ -4,18 +4,15 @@ package ui;
 // created with assistance from TellerApp:
 //      https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
-import model.Item;
-import model.ItemDeck;
-
+import model.Card;
+import model.CardDeck;
 import java.util.Scanner;
 
-
 public class DeckBuilderApp {
-    private ItemDeck deck;
-
+    private CardDeck deck;
     private Scanner input;
 
-    // EFFECTS: runs the Item Deck Builder application
+    // EFFECTS: runs the Card Deck Builder application
     public DeckBuilderApp() {
         runDeckBuilder();
     }
@@ -47,24 +44,24 @@ public class DeckBuilderApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
-            doAddItem();
+            doAddCard();
             //       } else if (command.equals("d")) {
             //           if (deck.isEmpty()) {
-            //               System.out.println("There are no items yet.");
+            //               System.out.println("There are no cards yet.");
             //           } else {
             //               doRemoveItem();
             //           }
         } else if (command.equals("e")) {
             if (deck.isEmpty()) {
-                System.out.println("There are no items to edit yet.");
+                System.out.println("There are no cards to edit yet.");
             } else {
-                doEditItem();
+                doEditCard();
             }
         } else if (command.equals("v")) {
             if (deck.isEmpty()) {
-                System.out.println("There are no items yet.");
+                System.out.println("There are no cards to view yet.");
             } else {
-                doViewItems();
+                doViewCards();
             }
         } else {
             System.out.println("Selection not valid...");
@@ -74,7 +71,7 @@ public class DeckBuilderApp {
     // MODIFIES: this
     // EFFECTS: initializes deck
     private void init() {
-        deck = new ItemDeck();
+        deck = new CardDeck();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }
@@ -82,27 +79,27 @@ public class DeckBuilderApp {
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
-        System.out.println("\ta -> add item to deck");
-//        System.out.println("\td -> delete item from deck");
-        System.out.println("\te -> edit item");
-        System.out.println("\tv -> view all items in deck");
+        System.out.println("\ta -> add card to deck");
+//        System.out.println("\td -> delete card from deck");
+        System.out.println("\te -> edit card");
+        System.out.println("\tv -> view all cards in deck");
         System.out.println("\tq -> quit");
     }
 
     // MODIFIES: this
-    // EFFECTS: adds an item to the deck
-    private void doAddItem() {
-        Item anItem;
-        System.out.print("\nEnter a unique title for the item:\n");
+    // EFFECTS: adds an card to the deck
+    private void doAddCard() {
+        Card anCard;
+        System.out.print("\nEnter a unique title for the card:\n");
         String title = input.next();
 
         if (title.length() > 0) {
-            if (deck.containsItemTitle(title)) {
-                System.out.println("There is already an item called " + "\"" + title + "\"\n");
+            if (deck.containsCardFromTitle(title)) {
+                System.out.println("There is already an card called " + "\"" + title + "\"\n");
             } else {
-                anItem = new Item(title);
-                deck.addItem(anItem);
-                System.out.println("Added item: \"" + anItem.getTitle() + "\"\n");
+                anCard = new Card(title);
+                deck.addCard(anCard);
+                System.out.println("Added card: \"" + anCard.getTitle() + "\"\n");
             }
         } else {
             System.out.println("Cannot have a blank title.\n");
@@ -110,9 +107,9 @@ public class DeckBuilderApp {
     }
 
 //    // MODIFIES: this
-//    // EFFECTS: removes an item from the deck
+//    // EFFECTS: removes an card from the deck
 //    private void doRemoveItem() {
-//        System.out.print("\nEnter the title of the item to delete:\n");
+//        System.out.print("\nEnter the title of the card to delete:\n");
 //        String title = input.next();
 //
 //        if (deck.containsItemTitle(title)) {
@@ -125,16 +122,16 @@ public class DeckBuilderApp {
 
     // MODIFIES: this
     // EFFECTS: displays edit options to user
-    private void doEditItem() {
+    private void doEditCard() {
         String selection = "";
         while (!(selection.equals("t") || selection.equals("d") || selection.equals("p") || selection.equals("f"))) {
-            doViewItems();
-            System.out.print("Which item do you want to edit?:\n");
+            doViewCards();
+            System.out.print("Which card do you want to edit?:\n");
             String title = input.next();
-            if (deck.containsItemTitle(title)) {
+            if (deck.containsCardFromTitle(title)) {
                 System.out.print("\nWhat would you like to change?: \n");
                 System.out.println("\td -> enter new description");
-                System.out.println("\tp -> edit how many points the item is worth");
+                System.out.println("\tp -> edit how many points the card is worth");
                 System.out.println("\tf -> toggle favorite status\n");
                 selection = input.next();
                 selection = selection.toLowerCase();
@@ -151,8 +148,8 @@ public class DeckBuilderApp {
         }
     }
 
-    //MODIFIES: item in deck with matching title
-    //EFFECTS: processes user command to rename description of selected item
+    //MODIFIES: card in deck with matching title
+    //EFFECTS: processes user command to rename description of selected card
     private void doEditDescription(String title) {
         System.out.print(deck.getDescriptionFromTitle(title));
         System.out.print("\nEnter the new description:\n");
@@ -161,14 +158,14 @@ public class DeckBuilderApp {
         System.out.print("\"" + title + "\"'s description has been updated to \"" + newDescription + "\"");
     }
 
-    //MODIFIES: item in deck with matching title
-    //EFFECTS: processes user command to edit the points value of selected item
+    //MODIFIES: card in deck with matching title
+    //EFFECTS: processes user command to edit the points value of selected card
     private void doEditPoints(String title) {
         System.out.print("\nThe difficulty options are as follows:");
         System.out.print("\n [1] easy");
         System.out.print("\n [2] medium");
         System.out.print("\n [3] hard");
-        System.out.print("\n Enter the appropriate difficulty for this item:\n");
+        System.out.print("\n Enter the appropriate difficulty for this card:\n");
         int value = input.nextInt();
         if (value == 1 || value == 2 || value == 3) {
             deck.editPointsFromTitle(title, value);
@@ -178,8 +175,8 @@ public class DeckBuilderApp {
         }
     }
 
-    //MODIFIES: item in deck with matching title
-    //EFFECTS: toggles favourite status of selected item
+    //MODIFIES: card in deck with matching title
+    //EFFECTS: toggles favourite status of selected card
     private void doToggleFavourite(String title) {
         Boolean oldStatus = deck.getFavouriteFromTitle(title);
         String output = "";
@@ -192,8 +189,8 @@ public class DeckBuilderApp {
         System.out.print("\"" + title + output);
     }
 
-    // EFFECTS: prints out the current list of items
-    private void doViewItems() {
-        System.out.println("\nThe current item(s) in the deck are: " + deck.getItemTitles());
+    // EFFECTS: prints out the current list of card
+    private void doViewCards() {
+        System.out.println("\nThe current card(s) in the deck are: " + deck.getCardFromTitle());
     }
 }

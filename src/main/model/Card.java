@@ -1,35 +1,36 @@
 package model;
 
-// Represents an item having a unique id, title, description, and play-count.
-// created with assistance from TellerApp:
-//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+// Represents a card item having a unique id, title,
+//   description, use-count, points value, and favourite status;
+// Created with assistance from TellerApp:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
-public class Item {
+public class Card {
     private static final int HARD_WORTH = 200;
     private static final int MED_WORTH = 100;
     private static final int EASY_WORTH = 50;
 
-    private static int nextItemId = 1;  // tracks id of the next item created
-    //TODO: Check how nextItemId works
+    private static int nextCardId = 1;  // tracks id of the next card item created
+    //TODO: Check how nextCardId works, possibly use length of deck
 
-    private final int id;                 // item id
-    private String title;           // the title of the item card
-    private String description;     // the item's description field value (optional)
-    private int usedCount;          // counts # of times item was used, starts at 0
-//    private int foundCount;          // counts # of times item was played, starts at 0
-    private int pointsWorth;
-    private Boolean isFavourite;      // toggle to select item as a favourite
+    private final int id;               // card id
+    private String title;               // the title of the card
+    private String description;         // the card's description field value (optional)
+    private int usedCount;              // counts # of times card was used, starts at 0
+//    private int foundCount;           // counts # of times card was found, starts at 0
+    private int pointsWorth;            // points (score) that the card is worth
+    private Boolean isFavourite;        // toggle to select card as a favourite
 
     /*
-    * REQUIRES: no other items have the same title
-    * EFFECTS:  item id is a positive integer not yet assigned to any other item;
-                title of item is set to itemTitle;
+    * REQUIRES: no other cards have the same title
+    * EFFECTS:  card id is a positive integer not yet assigned to any other card;
+                title of card is set to cardTitle;
                 description is set to the BLANK_PHRASE
                 favourite is set to FALSE;
      */
-    public Item(String itemTitle) {
-        id = nextItemId++;
-        title = itemTitle;
+    public Card(String cardTitle) {
+        id = nextCardId++;
+        title = cardTitle;
         description = "";
         usedCount = 0;
 //        foundCount = 0;
@@ -52,22 +53,22 @@ public class Item {
         return description;
     }
 
-    // EFFECTS: returns the count of how many times the item has been used
+    // EFFECTS: returns the count of how many times the card has been used
     public int getUsedCount() {
         return usedCount;
     }
 
-//    // EFFECTS: returns the count of how many times the item has been found
+//    // EFFECTS: returns the count of how many times the card has been found
 //    public int getFoundCount() {
 //        return foundCount;
 //    }
 
-    // EFFECTS: returns the number of points that an item is worth
+    // EFFECTS: returns the number of points that a card is worth
     public int getPointsWorth() {
         return pointsWorth;
     }
 
-    // EFFECTS: returns true if the item is marked as a favourite, else false
+    // EFFECTS: returns true if the card is marked as a favourite, else false
     public Boolean isFavourite() {
         return isFavourite;
     }

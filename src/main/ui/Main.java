@@ -1,5 +1,6 @@
 package ui;
 
+// Runs application
 // created with assistance from TellerApp:
 //      https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
