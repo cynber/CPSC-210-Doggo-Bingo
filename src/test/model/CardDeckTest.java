@@ -105,19 +105,6 @@ public class CardDeckTest {
         assertFalse(testDeck2.containsCardFromTitle("hello"));
     }
 
-//    @Test
-//    public void testRemoveItemTitle() {
-//        assertTrue(testDeck2.containsItemTitle("title1"));
-//        assertTrue(testDeck2.containsItemTitle("title2"));
-//        assertTrue(testDeck2.containsItemTitle("title3"));
-//        testDeck2.removeItemTitle("title4");
-//        assertEquals(testDeck2.getSize(),3);
-//        testDeck2.removeItemTitle("title2");
-//        assertEquals(testDeck2.getSize(),2);
-//        assertFalse(testDeck2.containsItemTitle("title2"));
-//    }
-//    //TODO working on extra user story
-
     @Test
     public void testGetCardTitles() {
         assertEquals(testDeck2.getCardFromTitle(), "\"title1\", \"title2\", and \"title3\".");

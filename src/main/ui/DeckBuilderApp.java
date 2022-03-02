@@ -29,42 +29,39 @@ public class DeckBuilderApp {
             displayMenu();
             command = input.next();
             command = command.toLowerCase();
-
             if (command.equals("q")) {
                 keepGoing = false;
             } else {
                 processCommand(command);
             }
         }
-
         System.out.println("\nDeck building process complete.");
     }
 
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        if (command.equals("a")) {
-            doAddCard();
-            //       } else if (command.equals("d")) {
-            //           if (deck.isEmpty()) {
-            //               System.out.println("There are no cards yet.");
-            //           } else {
-            //               doRemoveItem();
-            //           }
-        } else if (command.equals("e")) {
-            if (deck.isEmpty()) {
-                System.out.println("There are no cards to edit yet.");
-            } else {
-                doEditCard();
-            }
-        } else if (command.equals("v")) {
-            if (deck.isEmpty()) {
-                System.out.println("There are no cards to view yet.");
-            } else {
-                doViewCards();
-            }
-        } else {
-            System.out.println("Selection not valid...");
+        switch (command) {
+            case "a":
+                doAddCard();
+                break;
+            case "e":
+                if (deck.isEmpty()) {
+                    System.out.println("There are no cards to edit yet.");
+                } else {
+                    doEditCard();
+                }
+                break;
+            case "v":
+                if (deck.isEmpty()) {
+                    System.out.println("There are no cards to view yet.");
+                } else {
+                    doViewCards();
+                }
+                break;
+            default:
+                System.out.println("Selection not valid...");
+                break;
         }
     }
 
@@ -80,14 +77,13 @@ public class DeckBuilderApp {
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add card to deck");
-//        System.out.println("\td -> delete card from deck");
         System.out.println("\te -> edit card");
         System.out.println("\tv -> view all cards in deck");
         System.out.println("\tq -> quit");
     }
 
     // MODIFIES: this
-    // EFFECTS: adds an card to the deck
+    // EFFECTS: adds a card to the deck
     private void doAddCard() {
         Card anCard;
         System.out.print("\nEnter a unique title for the card:\n");
@@ -95,7 +91,7 @@ public class DeckBuilderApp {
 
         if (title.length() > 0) {
             if (deck.containsCardFromTitle(title)) {
-                System.out.println("There is already an card called " + "\"" + title + "\"\n");
+                System.out.println("There is already a card called " + "\"" + title + "\"\n");
             } else {
                 anCard = new Card(title);
                 deck.addCard(anCard);
@@ -106,20 +102,6 @@ public class DeckBuilderApp {
         }
     }
 
-//    // MODIFIES: this
-//    // EFFECTS: removes an card from the deck
-//    private void doRemoveItem() {
-//        System.out.print("\nEnter the title of the card to delete:\n");
-//        String title = input.next();
-//
-//        if (deck.containsItemTitle(title)) {
-//            deck.removeItemTitle(title);
-//            System.out.println("Deleted \"" + title + "\"\n");
-//        } else {
-//            System.out.println("\"" + title + "\"" + " does not exist currently.\n");
-//        }
-//    }
-
     // MODIFIES: this
     // EFFECTS: displays edit options to user
     private void doEditCard() {
@@ -129,23 +111,30 @@ public class DeckBuilderApp {
             System.out.print("Which card do you want to edit?:\n");
             String title = input.next();
             if (deck.containsCardFromTitle(title)) {
-                System.out.print("\nWhat would you like to change?: \n");
-                System.out.println("\td -> enter new description");
-                System.out.println("\tp -> edit how many points the card is worth");
-                System.out.println("\tf -> toggle favorite status\n");
-                selection = input.next();
-                selection = selection.toLowerCase();
-                if (selection.equals("d")) {
-                    doEditDescription(title);
-                } else if (selection.equals("p")) {
-                    doEditPoints(title);
-                } else if (selection.equals("f")) {
-                    doToggleFavourite(title);
+                dialogueEditCard();
+                selection = input.next().toLowerCase();
+                switch (selection) {
+                    case "d":
+                        doEditDescription(title);
+                        break;
+                    case "p":
+                        doEditPoints(title);
+                        break;
+                    case "f":
+                        doToggleFavourite(title);
+                        break;
                 }
             } else {
                 System.out.println("\"" + title + "\"" + " does not exist currently.\n");
             }
         }
+    }
+
+    private void dialogueEditCard() {
+        System.out.print("\nWhat would you like to change?: \n");
+        System.out.println("\td -> enter new description");
+        System.out.println("\tp -> edit how many points the card is worth");
+        System.out.println("\tf -> toggle favorite status\n");
     }
 
     //MODIFIES: card in deck with matching title

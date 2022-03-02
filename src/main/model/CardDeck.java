@@ -63,17 +63,6 @@ public class CardDeck {
         return false;
     }
 
-//    //EFFECTS: if card with title exists, removes the card, else does nothing
-//    public void removeItemTitle(String title) {
-//        for (Item i: itemList) {
-//            if (i.getTitle().equals(title)) {
-//                removeItem(i);
-//            } else {
-//                ;
-//            }
-//        }
-//    }
-
     //REQUIRES: there are 1+ items in the deck
     //EFFECTS: returns a string representation of item titles, separated by commas.
     public String getCardFromTitle() {
