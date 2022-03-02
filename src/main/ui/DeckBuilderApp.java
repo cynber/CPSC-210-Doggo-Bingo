@@ -6,11 +6,20 @@ package ui;
 
 import model.Card;
 import model.CardDeck;
+import persistence.JsonReader;
+import persistence.JsonWriter;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class DeckBuilderApp {
     private CardDeck deck;
     private Scanner input;
+    private static final String JSON_STORE = "./data/workroom.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: runs the Card Deck Builder application
     public DeckBuilderApp() {
@@ -59,6 +68,12 @@ public class DeckBuilderApp {
                     doViewCards();
                 }
                 break;
+            case "s":
+                doSaveProgress();
+                break;
+            case "l":
+                doLoadProgress();
+                break;
             default:
                 System.out.println("Selection not valid...");
                 break;
@@ -79,6 +94,8 @@ public class DeckBuilderApp {
         System.out.println("\ta -> add card to deck");
         System.out.println("\te -> edit card");
         System.out.println("\tv -> view all cards in deck");
+        System.out.println("\ts -> save deck building progress");
+        System.out.println("\tl -> load deck building progress");
         System.out.println("\tq -> quit");
     }
 
@@ -181,5 +198,50 @@ public class DeckBuilderApp {
     // EFFECTS: prints out the current list of card
     private void doViewCards() {
         System.out.println("\nThe current card(s) in the deck are: " + deck.getCardFromTitle());
+    }
+
+    // EFFECTS: saves the deck builder progress to file
+    private void saveWorkRoom() {
+        try {
+            updateDeckName();
+            jsonWriter.open();
+            jsonWriter.write(deck);
+            jsonWriter.close();
+            System.out.println("Saved " + deck.getDeckName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    private void updateDeckName() {
+        String deckName = deck.getDeckName();
+        if (Objects.equals(deckName, "")) {
+            System.out.println("Please enter a name for this deck:\n");
+            deckName = input.next();
+        } else {
+            System.out.println("This deck currently has the following name:\n" + deckName);
+            System.out.println("Would you like to update the name? (y/n)");
+            String selection = input.next();
+            if (selection == "y") {
+                System.out.println("Enter a new name:\n");
+                deckName = input.next();
+            } else if (selection == "n") {
+                System.out.println("Name was kept as:\n" + deckName);
+            } else {
+                System.out.println("That was not a valid selection...");
+                System.out.println("Name was kept as:\n" + deckName);
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the deck builder progress from file
+    private void loadWorkRoom() {
+        try {
+            deck = jsonReader.read();
+            System.out.println("Loaded " + deck.getDeckName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 }

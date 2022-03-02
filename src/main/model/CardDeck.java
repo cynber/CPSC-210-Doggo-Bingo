@@ -9,6 +9,7 @@ import java.util.Objects;
 
 public class CardDeck {
     ArrayList<Card> cardList;
+    String deckName;
 
 //    private static final int REQ_TEST_BOARD = 5;
 //    private static final int REQ_SIZE_5_5_YES_FREE = 24;
@@ -18,6 +19,7 @@ public class CardDeck {
 
     public CardDeck() {
         cardList = new ArrayList<>();
+        deckName = "No Title";
     }
 
     //REQUIRES: card with matching title must not already be in list
@@ -140,6 +142,16 @@ public class CardDeck {
     public Boolean getFavouriteFromTitle(String title) {
         Card i = getCardFromTitle(title);
         return i.isFavourite();
+    }
+
+    //EFFECTS: gets the deck name
+    public String getDeckName() {
+        return deckName;
+    }
+
+    //EFFECTS: sets the deck name
+    public void setDeckName(String s) {
+        deckName = s;
     }
 
     //TODO: find a way to measure how well built a deck is, possible metrics:
