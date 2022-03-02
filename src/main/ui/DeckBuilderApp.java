@@ -17,7 +17,7 @@ import java.util.Scanner;
 public class DeckBuilderApp {
     private CardDeck deck;
     private Scanner input;
-    private static final String JSON_STORE = "./data/workroom.json";
+    private static final String JSON_STORE = "./data/CardDeck.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -50,33 +50,26 @@ public class DeckBuilderApp {
     // MODIFIES: this
     // EFFECTS: processes user command
     private void processCommand(String command) {
-        switch (command) {
-            case "a":
-                doAddCard();
-                break;
-            case "e":
-                if (deck.isEmpty()) {
-                    System.out.println("There are no cards to edit yet.");
-                } else {
-                    doEditCard();
-                }
-                break;
-            case "v":
-                if (deck.isEmpty()) {
-                    System.out.println("There are no cards to view yet.");
-                } else {
-                    doViewCards();
-                }
-                break;
-            case "s":
-                doSaveProgress();
-                break;
-            case "l":
-                doLoadProgress();
-                break;
-            default:
-                System.out.println("Selection not valid...");
-                break;
+        if ("a".equals(command)) {
+            doAddCard();
+        } else if ("e".equals(command)) {
+            if (deck.isEmpty()) {
+                System.out.println("There are no cards to edit yet.");
+            } else {
+                doEditCard();
+            }
+        } else if ("v".equals(command)) {
+            if (deck.isEmpty()) {
+                System.out.println("There are no cards to view yet.");
+            } else {
+                doViewCards();
+            }
+        } else if ("s".equals(command)) {
+            doSaveProgress();
+        } else if ("l".equals(command)) {
+            doLoadProgress();
+        } else {
+            System.out.println("Selection not valid...");
         }
     }
 
@@ -86,6 +79,8 @@ public class DeckBuilderApp {
         deck = new CardDeck();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // EFFECTS: displays menu of options to user
@@ -201,11 +196,11 @@ public class DeckBuilderApp {
     }
 
     // EFFECTS: saves the deck builder progress to file
-    private void saveWorkRoom() {
+    private void doSaveProgress() {
         try {
             updateDeckName();
             jsonWriter.open();
-            jsonWriter.write(deck);
+            jsonWriter.writeCardDeck(deck);
             jsonWriter.close();
             System.out.println("Saved " + deck.getDeckName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
@@ -222,10 +217,11 @@ public class DeckBuilderApp {
             System.out.println("This deck currently has the following name:\n" + deckName);
             System.out.println("Would you like to update the name? (y/n)");
             String selection = input.next();
-            if (selection == "y") {
+            if (Objects.equals(selection, "y")) {
                 System.out.println("Enter a new name:\n");
                 deckName = input.next();
-            } else if (selection == "n") {
+                deck.setDeckName(deckName);
+            } else if (Objects.equals(selection, "n")) {
                 System.out.println("Name was kept as:\n" + deckName);
             } else {
                 System.out.println("That was not a valid selection...");
@@ -236,7 +232,7 @@ public class DeckBuilderApp {
 
     // MODIFIES: this
     // EFFECTS: loads the deck builder progress from file
-    private void loadWorkRoom() {
+    private void doLoadProgress() {
         try {
             deck = jsonReader.read();
             System.out.println("Loaded " + deck.getDeckName() + " from " + JSON_STORE);

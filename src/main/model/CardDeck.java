@@ -4,12 +4,16 @@ package model;
 // created with assistance from TellerApp:
 //      https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class CardDeck {
-    ArrayList<Card> cardList;
+public class CardDeck implements Writable {
     String deckName;
+    ArrayList<Card> cardList;
 
 //    private static final int REQ_TEST_BOARD = 5;
 //    private static final int REQ_SIZE_5_5_YES_FREE = 24;
@@ -104,7 +108,7 @@ public class CardDeck {
     //EFFECTS: renames the card in this with matching title, with inputted description
     public void renameDescriptionFromTitle(String title, String description) {
         Card i = getCardFromTitle(title);
-        i.renameDescription(description);
+        i.setDescription(description);
     }
 
     //REQUIRES: card must exist in list
@@ -125,7 +129,7 @@ public class CardDeck {
     //EFFECTS: edits the pointsWorth value of the card in this with matching title, with inputted points
     public void editPointsFromTitle(String title, int points) {
         Card i = getCardFromTitle(title);
-        i.editPoints(points);
+        i.setPoints(points);
     }
 
     //REQUIRES: card must exist in list
@@ -154,7 +158,26 @@ public class CardDeck {
         deckName = s;
     }
 
-    //TODO: find a way to measure how well built a deck is, possible metrics:
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("deck name", deckName);
+        json.put("cards", cardsToJson());
+        return json;
+    }
+
+    // EFFECTS: returns things in this workroom as a JSON array
+    private JSONArray cardsToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Card c : cardList) {
+            jsonArray.put(c.toJson());
+        }
+
+        return jsonArray;
+    }
+
+    //TODO: find a way to measure how "well built" a deck is, possible metrics:
     //      - number of cards
     //      - number of cards with descriptions
     //      - number of cards with images (if we add images)

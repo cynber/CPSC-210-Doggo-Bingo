@@ -28,14 +28,14 @@ class CardTest {
     @Test
     public void testRenameCard() {
         assertEquals(testCard1.getTitle(), "title1");
-        testCard1.renameTitle("New Title 1");
+        testCard1.setTitle("New Title 1");
         assertEquals(testCard1.getTitle(), "New Title 1");
     }
 
     @Test
     public void testRenameDescription() {
         assertEquals(testCard1.getDescription(), "");
-        testCard1.renameDescription("New description.");
+        testCard1.setDescription("New description.");
         assertEquals(testCard1.getDescription(), "New description.");
     }
 
@@ -51,11 +51,11 @@ class CardTest {
     @Test
     public void testEditPoints() {
         assertEquals(testCard1.getPointsWorth(), 100);
-        testCard1.editPoints(1);
+        testCard1.setPoints(1);
         assertEquals(testCard1.getPointsWorth(), 50);
-        testCard1.editPoints(3);
+        testCard1.setPoints(3);
         assertEquals(testCard1.getPointsWorth(), 200);
-        testCard1.editPoints(2);
+        testCard1.setPoints(2);
         assertEquals(testCard1.getPointsWorth(), 100);
     }
 

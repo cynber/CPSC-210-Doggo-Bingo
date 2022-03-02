@@ -30,7 +30,7 @@ public class JsonReader {
     private String readFile(String source) throws IOException {
         StringBuilder contentBuilder = new StringBuilder();
 
-        try (Stream<String> stream = Files.lines( Paths.get(source), StandardCharsets.UTF_8)) {
+        try (Stream<String> stream = Files.lines(Paths.get(source), StandardCharsets.UTF_8)) {
             stream.forEach(s -> contentBuilder.append(s));
         }
 
@@ -39,7 +39,7 @@ public class JsonReader {
 
     // EFFECTS: parses card deck from JSON object and returns it
     private CardDeck parseCardDeck(JSONObject jsonObject) {
-        String name = jsonObject.getString("name");
+    //    int cardID = jsonObject.getInt("cardID");
         CardDeck cd = new CardDeck();
         addCards(cd, jsonObject);
         return cd;
@@ -58,9 +58,21 @@ public class JsonReader {
     // MODIFIES: cd
     // EFFECTS: parses thingy from JSON object and adds it to workroom
     private void addCard(CardDeck cd, JSONObject jsonObject) {
-        String cardTitle = jsonObject.getString("name");
-        Category category = Category.valueOf(jsonObject.getString("category"));
+        int cardId = jsonObject.getInt("cardID");
+        String cardTitle = jsonObject.getString("Title");
+        String cardDescription = jsonObject.getString("Description");
+        int cardUsedCount = jsonObject.getInt("Use Count");
+    //  int cardFoundCount = jsonObject.getInt("Found Count");
+        int cardPointsWorth = jsonObject.getInt("Points");
+        boolean cardIsFavourite = jsonObject.getBoolean("Favourite");
         Card oneCard = new Card(cardTitle);
+        oneCard.setId(cardId);
+        oneCard.setTitle(cardTitle);
+        oneCard.setDescription(cardDescription);
+        oneCard.setUsedCount(cardUsedCount);
+    //  oneCard.setFoundCount(cardFoundCount);
+        oneCard.setPoints(cardPointsWorth);
+        oneCard.setIsFavourite(cardIsFavourite);
         cd.addCard(oneCard);
     }
 }

@@ -5,7 +5,11 @@ package model;
 // Created with assistance from TellerApp:
 //   https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
-public class Card {
+import com.sun.xml.internal.bind.v2.model.core.ID;
+import org.json.JSONObject;
+import persistence.Writable;
+
+public class Card implements Writable {
     private static final int HARD_WORTH = 200;
     private static final int MED_WORTH = 100;
     private static final int EASY_WORTH = 50;
@@ -13,7 +17,7 @@ public class Card {
     private static int nextCardId = 1;  // tracks id of the next card item created
     //TODO: Check how nextCardId works, possibly use length of deck
 
-    private final int id;               // card id
+    private int id;                     // card id
     private String title;               // the title of the card
     private String description;         // the card's description field value (optional)
     private int usedCount;              // counts # of times card was used, starts at 0
@@ -43,34 +47,18 @@ public class Card {
         return id;
     }
 
+    /*
+     * REQUIRES: newID has value >= 1
+     * MODIFIES: this
+     * EFFECTS: id is set to newId
+     */
+    public void setId(int newId) {
+        id = newId;
+    }
+
     // EFFECTS: returns the title
     public String getTitle() {
         return title;
-    }
-
-    // EFFECTS: returns the description
-    public String getDescription() {
-        return description;
-    }
-
-    // EFFECTS: returns the count of how many times the card has been used
-    public int getUsedCount() {
-        return usedCount;
-    }
-
-//    // EFFECTS: returns the count of how many times the card has been found
-//    public int getFoundCount() {
-//        return foundCount;
-//    }
-
-    // EFFECTS: returns the number of points that a card is worth
-    public int getPointsWorth() {
-        return pointsWorth;
-    }
-
-    // EFFECTS: returns true if the card is marked as a favourite, else false
-    public Boolean isFavourite() {
-        return isFavourite;
     }
 
     /*
@@ -78,8 +66,13 @@ public class Card {
      * MODIFIES: this
      * EFFECTS: title is set to newTitle
      */
-    public void renameTitle(String newTitle) {
+    public void setTitle(String newTitle) {
         title = newTitle;
+    }
+
+    // EFFECTS: returns the description
+    public String getDescription() {
+        return description;
     }
 
     /*
@@ -87,17 +80,41 @@ public class Card {
      * MODIFIES: this
      * EFFECTS: title is set to newDescription
      */
-    public void renameDescription(String newDescription) {
+    public void setDescription(String newDescription) {
         description = newDescription;
     }
 
+    // EFFECTS: returns the count of how many times the card has been used
+    public int getUsedCount() {
+        return usedCount;
+    }
+
     /*
-     * REQUIRES: timesUsed >= 1
+     * REQUIRES: newUsedCount has value >= 0
      * MODIFIES: this
-     * EFFECTS: increments usedCount by timesUsed
+     * EFFECTS: usedCount is set to newUsedCount
      */
-    public void useItem(int timesUsed) {
-        usedCount += timesUsed;
+    public void setUsedCount(int newUsedCount) {
+        usedCount = newUsedCount;
+    }
+
+//    // EFFECTS: returns the count of how many times the card has been found
+//    public int getFoundCount() {
+//        return foundCount;
+//    }
+
+    /*
+     * REQUIRES: newFoundCount has value >= 0
+     * MODIFIES: this
+     * EFFECTS: foundCount is set to newFoundCount
+     */
+//  public void setFoundCount(int newFoundCount) {
+//      foundCount = newFoundCount;
+//  }
+
+    // EFFECTS: returns the number of points that a card is worth
+    public int getPointsWorth() {
+        return pointsWorth;
     }
 
     /*
@@ -106,7 +123,7 @@ public class Card {
      * EFFECTS: changes the pointsWorth value to EASY_WORTH,
        MED_WORTH, or HARD_WORTH for 1, 2, or 3 respectively
      */
-    public void editPoints(int points) {
+    public void setPoints(int points) {
         if (points == 1) {
             pointsWorth = EASY_WORTH;
         } else {
@@ -118,7 +135,42 @@ public class Card {
         }
     }
 
+    // EFFECTS: returns true if the card is marked as a favourite, else false
+    public Boolean isFavourite() {
+        return isFavourite;
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: isFavourite is set to newIsFavourite
+     */
+    public void setIsFavourite(Boolean newIsFavourite) {
+        isFavourite = newIsFavourite;
+    }
+
+    /*
+     * REQUIRES: timesUsed >= 1
+     * MODIFIES: this
+     * EFFECTS: increments usedCount by timesUsed
+     */
+    public void useItem(int timesUsed) {
+        usedCount += timesUsed;
+    }
+
     public void toggleFavourite() {
         isFavourite = !isFavourite;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("cardID", id);
+        json.put("Title", title);
+        json.put("Description", description);
+        json.put("Use Count", usedCount);
+  //    json.put("Found Count", foundCount);
+        json.put("Points", pointsWorth);
+        json.put("Favourite", isFavourite);        // toggle to select card as a favourite
+        return json;
     }
 }
