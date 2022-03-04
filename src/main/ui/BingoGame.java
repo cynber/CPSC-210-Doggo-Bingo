@@ -1,5 +1,11 @@
 package ui;
 
+// Represents a console based interface that users can use to play the game
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 // Made with help from StackOverflow thread on outputting as a table:
 // https://stackoverflow.com/questions/2745206/output-in-a-table-format-in-javas-system-out
 

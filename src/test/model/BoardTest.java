@@ -1,5 +1,9 @@
 package model;
 
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -80,6 +84,11 @@ public class BoardTest {
         checkCardandSpaceId(bdTest, c7, 6, 7);
         checkCardandSpaceId(bdTest, c8, 7, 8);
         checkCardandSpaceId(bdTest, c9, 8, 9);
+    }
+
+    @Test
+    public void testMakeBoardBadCode() {
+        assertEquals("Invalid.",Board.makeBoard("junk",cd));
     }
 
     private void checkCardandSpaceId(ArrayList<BoardSpace> bdTest, Card c1, int i, int i2) {

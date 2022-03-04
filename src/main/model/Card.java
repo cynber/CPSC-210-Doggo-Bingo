@@ -2,8 +2,10 @@ package model;
 
 // Represents a card item having a unique id, title,
 //   description, use-count, points value, and favourite status;
-// Created with assistance from TellerApp:
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
 //   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 
 import org.json.JSONObject;

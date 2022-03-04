@@ -1,8 +1,10 @@
 package model;
 
-// Represents a deck of items that can be used to build a Bingo board
-// created with assistance from TellerApp:
-//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+// represents a deck with a deckName and a list of cards
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 import org.json.JSONArray;
 import org.json.JSONObject;

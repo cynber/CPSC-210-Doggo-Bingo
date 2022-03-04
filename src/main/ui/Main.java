@@ -1,8 +1,10 @@
 package ui;
 
 // Runs application
-// created with assistance from TellerApp:
-//      https://github.students.cs.ubc.ca/CPSC210/TellerApp
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 import java.io.FileNotFoundException;
 

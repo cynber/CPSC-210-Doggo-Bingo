@@ -1,7 +1,12 @@
 package model;
 
-public class BoardSpace {
+// represents a space on the game board with an ID, a card, and a found status
 
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+public class BoardSpace {
     private static int nextSpaceId = 1;  // tracks id of the next card item created
 
     int spaceId;

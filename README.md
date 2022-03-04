@@ -6,8 +6,9 @@
 
 **References:**
 
-Main and DeckBuilderApp were created with assistance from TellerApp
-* https://github.students.cs.ubc.ca/CPSC210/TellerApp
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
 
 ---
 
@@ -110,5 +111,6 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 
 ###User Stories P2:
 
-* As a user, I want to be able to save a deck of cards to a file
-* As a user, I want to be able to load a deck of cards from a file
+* As a user, I want to be able to save my deck building progress to a file
+* As a user, I want to be able to load my deck building progress from a file
+* As a user, I want to be able to load a custom preset deck of cards from a file
