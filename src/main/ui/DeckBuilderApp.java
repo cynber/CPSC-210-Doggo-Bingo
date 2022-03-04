@@ -25,15 +25,18 @@ public class DeckBuilderApp {
     private JsonReader jsonReaderDog;
 
     // EFFECTS: runs the Card Deck Builder application
-    public DeckBuilderApp() {
+    public DeckBuilderApp() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonReaderDog = new JsonReader(JSON_STORE_DOG);
         runDeckBuilder();
     }
 
     // MODIFIES: this
     // EFFECTS: processes user input
-    private void runDeckBuilder() {
+    private void runDeckBuilder() throws FileNotFoundException {
         boolean keepGoing = true;
-        String command = null;
+        String command;
 
         init();
 
@@ -52,7 +55,7 @@ public class DeckBuilderApp {
 
     // MODIFIES: this
     // EFFECTS: processes user command
-    private void processCommand(String command) {
+    private void processCommand(String command) throws FileNotFoundException {
         if ("a".equals(command)) {
             doAddCard();
         } else if ("e".equals(command)) {
@@ -60,6 +63,7 @@ public class DeckBuilderApp {
                 System.out.println("There are no cards to edit yet.");
             } else {
                 doEditCard();
+                System.out.println("\nBE SURE TO SAVE YOUR PROGRESS LATER!");
             }
         } else if ("v".equals(command)) {
             if (deck.isEmpty()) {
@@ -67,15 +71,20 @@ public class DeckBuilderApp {
             } else {
                 displayViewOptions();
             }
-        } else if ("s".equals(command)) {
+        } else if ("s".equals(command) || "l".equals(command)) {
+            processCommandSaveLoad(command);
+        } else if ("p".equals(command)) {
+            new BingoGame();
+        } else {
+            System.out.println("Selection not valid...");
+        }
+    }
+
+    private void processCommandSaveLoad(String command) {
+        if ("s".equals(command)) {
             doSaveProgress();
         } else if ("l".equals(command)) {
             displayLoadOptions();
-        } else if ("p".equals(command)) {
-            new BingoGame();
-    //        System.out.println("game does not work yet...");
-        } else {
-            System.out.println("Selection not valid...");
         }
     }
 
@@ -85,9 +94,6 @@ public class DeckBuilderApp {
         deck = new CardDeck();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonReaderDog = new JsonReader(JSON_STORE_DOG);
     }
 
     // EFFECTS: displays menu of options to user
@@ -95,9 +101,9 @@ public class DeckBuilderApp {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add card to deck");
         System.out.println("\te -> edit card(s)");
-        System.out.println("\tv -> view card(s)");
+        System.out.println("\tv -> view card(s)\n");
         System.out.println("\ts -> save deck building progress");
-        System.out.println("\tl -> load a deck");
+        System.out.println("\tl -> load a deck\n");
         System.out.println("\tp -> PLAY THE GAME");
         System.out.println("\tq -> quit");
     }
@@ -117,32 +123,29 @@ public class DeckBuilderApp {
                 deck.addCard(anCard);
                 System.out.println("Added card: \"" + anCard.getTitle() + "\"\n");
             }
+            System.out.println("BE SURE TO SAVE YOUR PROGRESS LATER!");
         } else {
             System.out.println("Cannot have a blank title.\n");
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: displays edit options to user
+    // EFFECTS: displays edit options to user and follows user input
     private void doEditCard() {
         String selection = "";
         while (!(selection.equals("t") || selection.equals("d") || selection.equals("p") || selection.equals("f"))) {
-            doViewCards();
+            doViewCardTitles();
             System.out.print("Which card do you want to edit?:\n");
             String title = input.next();
             if (deck.containsCardFromTitle(title)) {
                 displayEditOptions();
                 selection = input.next().toLowerCase();
-                switch (selection) {
-                    case "d":
-                        doEditDescription(title);
-                        break;
-                    case "p":
-                        doEditPoints(title);
-                        break;
-                    case "f":
-                        doToggleFavourite(title);
-                        break;
+                if ("d".equals(selection)) {
+                    doEditDescription(title);
+                } else if ("p".equals(selection)) {
+                    doEditPoints(title);
+                } else if ("f".equals(selection)) {
+                    doToggleFavourite(title);
                 }
             } else {
                 System.out.println("\"" + title + "\"" + " does not exist currently.\n");
@@ -150,6 +153,7 @@ public class DeckBuilderApp {
         }
     }
 
+    // EFFECTS: displays edit options to user
     private void displayEditOptions() {
         System.out.print("\nWhat would you like to change?: \n");
         System.out.println("\td -> enter new description");
@@ -188,7 +192,7 @@ public class DeckBuilderApp {
     //EFFECTS: toggles favourite status of selected card
     private void doToggleFavourite(String title) {
         Boolean oldStatus = deck.getFavouriteFromTitle(title);
-        String output = "";
+        String output;
         if (oldStatus) {
             output = "\" is no longer marked as a favourite.\n";
         } else {
@@ -205,17 +209,18 @@ public class DeckBuilderApp {
         System.out.println("f -> view full card details for all cards");
         String selection = input.next();
         if (Objects.equals(selection, "t")) {
-            doViewCards();
+            doViewCardTitles();
         } else {
             doViewCardDetails();
         }
     }
 
-    // EFFECTS: prints out the current list of card
-    private void doViewCards() {
+    // EFFECTS: prints out the card titles of all cards in the deck
+    private void doViewCardTitles() {
         System.out.println("\nThe current card(s) in the deck are: " + deck.getCardFromTitle());
     }
 
+    // EFFECTS: prints out the current details for all cards in deck
     private void doViewCardDetails() {
         ArrayList<Card> results;
         results = deck.getCardDetails();
@@ -235,7 +240,8 @@ public class DeckBuilderApp {
     // EFFECTS: saves the deck builder progress to file
     private void doSaveProgress() {
         try {
-    //        updateDeckName();         // TODO: Make custom save option
+    //        updateDeckName();         // TODO: Make custom save option, possibly have a few save states
+                                        // TODO: check if we are allowed to have save states
             jsonWriter.open();
             jsonWriter.writeCardDeck(deck);
             jsonWriter.close();
@@ -245,27 +251,29 @@ public class DeckBuilderApp {
         }
     }
 
-    private void updateDeckName() {     // TODO: add rename method after custom save option
-        String deckName = deck.getDeckName();
-        if (Objects.equals(deckName, "")) {
-            System.out.println("Please enter a name for this deck:\n");
-            deckName = input.next();
-        } else {
-            System.out.println("This deck currently has the following name:\n" + deckName);
-            System.out.println("Would you like to update the name? (y/n)");
-            String selection = input.next();
-            if (Objects.equals(selection, "y")) {
-                System.out.println("Enter a new name:");
-                deckName = input.next();
-                deck.setDeckName(deckName);
-            } else if (Objects.equals(selection, "n")) {
-                System.out.println("Name was kept as:\n" + deckName);
-            } else {
-                System.out.println("That was not a valid selection...");
-                System.out.println("Name was kept as:\n" + deckName);
-            }
-        }
-    }
+    // MODIFIES: this
+    // EFFECTS: changes the title of the deck
+//    private void updateDeckName() {     // TODO: add rename method after custom save option
+//        String deckName = deck.getDeckName();
+//        if (Objects.equals(deckName, "")) {
+//            System.out.println("Please enter a name for this deck:\n");
+//            deckName = input.next();
+//        } else {
+//            System.out.println("This deck currently has the following name:\n" + deckName);
+//            System.out.println("Would you like to update the name? (y/n)");
+//            String selection = input.next();
+//            if (Objects.equals(selection, "y")) {
+//                System.out.println("Enter a new name:");
+//                deckName = input.next();
+//                deck.setDeckName(deckName);
+//            } else if (Objects.equals(selection, "n")) {
+//                System.out.println("Name was kept as:\n" + deckName);
+//            } else {
+//                System.out.println("That was not a valid selection...");
+//                System.out.println("Name was kept as:\n" + deckName);
+//            }
+//        }
+//    }
 
     // EFFECTS: displays the load menu options
     private void displayLoadOptions() {

@@ -9,6 +9,7 @@ import model.CardDeck;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -29,7 +30,10 @@ public class BingoGame {
     private JsonReader jsonReaderDog;
 
     // EFFECTS: runs the Bingo Game application
-    public BingoGame() {
+    public BingoGame() throws FileNotFoundException {
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
+        jsonReaderDog = new JsonReader(JSON_STORE_DOG);
         runBingoGame();
     }
 
@@ -60,19 +64,18 @@ public class BingoGame {
         deck = new CardDeck();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
-        jsonReaderDog = new JsonReader(JSON_STORE_DOG);
     }
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tl -> Load a deck to play with");
-        System.out.println("\tp1 -> UNAVAILABLE - Play on standard board (with FREE space)");
+        System.out.println("\tq -> Quit game \n");
+        System.out.println("\tp1 -> UNAVAILABLE - Play on standard board (with FREE space)"); //TODO: other game modes
         System.out.println("\tp2 -> UNAVAILABLE - Play on standard board (no FREE space)");
         System.out.println("\tp3 -> UNAVAILABLE - Play on small board (with FREE space)");
-        System.out.println("\tp4 -> Play on small board (no FREE space)");
+        System.out.println("\tp4 -> Play on small board (no FREE space)\n");
+
     }
 
     // MODIFIES: this
@@ -80,19 +83,32 @@ public class BingoGame {
     private void processCommand(String command) {
         if ("l".equals(command)) {
             displayLoadOptions();
-        } else if (Objects.equals(command, "p1")
-                || Objects.equals(command, "p2")
-                || Objects.equals(command, "p3")
-                || Objects.equals(command, "p4")) {
-            gameMode = command;
-            bd = newBoard(gameMode, deck);
-            System.out.println("WELCOME TO BINGO!");
-            playGame();
+        } else if (Objects.equals(command, "p4")) {
+            int minimumSize = 9;
+//        } else if (Objects.equals(command, "p1")      \\TODO: add other game modes
+//                || Objects.equals(command, "p2")
+//                || Objects.equals(command, "p3")
+//                || Objects.equals(command, "p4")) {
+            if (deck.getDeckSize() < minimumSize) {
+                System.out.println("You do not have enough cards in this deck to play on this board.");
+                System.out.println("Do one of the following:");
+                System.out.println("\t - Add some more cards to the deck.");
+                System.out.println("\t - Pick a different deck.");
+                System.out.println("\t - Pick a different board.");
+                return;
+            } else {
+                gameMode = command;
+                bd = newBoard(gameMode, deck);
+                System.out.println("WELCOME TO BINGO!");
+                playGame();
+            }
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: generates a new board using cards from the deck
     private ArrayList<BoardSpace> newBoard(String code, CardDeck deck) {
         bd = Board.makeBoard(code,deck);
         bdMarks = new ArrayList<String>();
@@ -102,21 +118,25 @@ public class BingoGame {
         return bd;
     }
 
+    // EFFECTS: starts the game
     private void playGame() {
         checkWin(gameMode);
 
-        System.out.println("WELCOME TO BINGO!");
+
         displayBoard(gameMode);
         displayTurnOptions();
         playTurn();
     }
 
+    // EFFECTS: displays gameplay options
     private void displayTurnOptions() {
         System.out.println("Select an option:");
         System.out.println("\t m -> mark a box");
         System.out.println("\t s -> skip turn and do nothing");
     }
 
+    // MODIFIES: this
+    // EFFECTS: uses user input to modify board
     private void playTurn() {
         String command = input.next();
         command = command.toLowerCase();
@@ -125,9 +145,12 @@ public class BingoGame {
         } else {
             System.out.println("Skipping turn...");
         }
+
         playGame();
     }
 
+    // MODIFIES: this
+    // EFFECTS: uses user input to mark a board space as "found"
     private void editBoard() {
         System.out.println("Which box should be marked off? Type the box code (ex. \"A1\")");
         String command = input.next();
@@ -138,6 +161,8 @@ public class BingoGame {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: uses user input to mark a board space as "found"
     private void editBoardHalfOne(String command) {     //TODO: check if we can suppress checkstyle for long switch
         if ("a1".equals(command)) {
             bdMarks.set(0, "FOUND");
@@ -149,9 +174,13 @@ public class BingoGame {
             bdMarks.set(3, "FOUND");
         } else if ("a5".equals(command)) {
             bdMarks.set(4, "FOUND");
+        } else {
+            editBoardHalfTwo(command);
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: uses user input to mark a board space as "found"
     private void editBoardHalfTwo(String command) {
         if ("a6".equals(command)) {
             bdMarks.set(5, "FOUND");
@@ -164,11 +193,14 @@ public class BingoGame {
         }
     }
 
-
+    // MODIFIES: this
+    // EFFECTS: checks if the board has a win state
     private void checkWin(String gameMode) { //TODO
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: displays the game board
     private void displayBoard(String gameMode) {
         if (Objects.equals(gameMode, "p4")) {
             System.out.format("%40s%40s%40s%1s", "A", "B", "C","\n\n");
@@ -192,13 +224,6 @@ public class BingoGame {
                     bd.get(8).getCard().getTitle(),"\n\n\n\n");
         }
     }
-
-
-
-
-
-
-
 
     // EFFECTS: displays the load menu options
     private void displayLoadOptions() {

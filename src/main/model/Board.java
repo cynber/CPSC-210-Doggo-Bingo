@@ -1,11 +1,7 @@
 package model;
 
-
-
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 public class Board {
     private static final int BOARD_P1 = 24;   // standard board (with FREE space)
@@ -15,14 +11,12 @@ public class Board {
 
     private static ArrayList<BoardSpace> gameBoard;
 
-
-
-
     // EFFECTS:  creates a new game board array
     public Board() {
         gameBoard = new ArrayList<>();
     }
 
+    // MODIFIES: this
     public static ArrayList<BoardSpace> makeBoard(String code, CardDeck deck) {
         int boardSize = 0;
         ArrayList<Card> cards;
@@ -49,14 +43,18 @@ public class Board {
         return gameBoard;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a board space to the game board
     public void addBoardSpace(BoardSpace bs) {
         gameBoard.add(bs);
     }
 
+    // EFFECTS: returns the number of board spaces
     public int getNumberOfSpaces() {
         return gameBoard.size();
     }
 
+    // EFFECTS: gets the BoardSpace item index i
     public BoardSpace getIndexBoardSpace(int i) {
         return gameBoard.get(i);
     }

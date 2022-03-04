@@ -164,10 +164,14 @@ public class Card implements Writable {
         usedCount += timesUsed;
     }
 
+    // MODIFIES: this
+    // EFFECTS: toggle the favourite status
     public void toggleFavourite() {
         isFavourite = !isFavourite;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets all the fields in Card
     public void setCardFields(int newID, String newTitle, String newDescription,
                               int newUsedCount, int newPointsWorth, Boolean newIsFavourite) {
         id = newID;
@@ -179,6 +183,7 @@ public class Card implements Writable {
     }
 
 
+    // EFFECTS: creates a JSON object of the card
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

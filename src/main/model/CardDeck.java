@@ -172,8 +172,13 @@ public class CardDeck implements Writable {
         cardList = cl;
     }
 
+    //EFFECTS: gets the size of the deck
+    public int getDeckSize() {
+        return cardList.size();
+    }
 
 
+    // EFFECTS: creates a Json Object for the CardDeck
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
