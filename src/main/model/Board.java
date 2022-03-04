@@ -48,4 +48,16 @@ public class Board {
         }
         return gameBoard;
     }
+
+    public void addBoardSpace(BoardSpace bs) {
+        gameBoard.add(bs);
+    }
+
+    public int getNumberOfSpaces() {
+        return gameBoard.size();
+    }
+
+    public BoardSpace getIndexBoardSpace(int i) {
+        return gameBoard.get(i);
+    }
 }

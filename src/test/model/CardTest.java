@@ -18,7 +18,10 @@ class CardTest {
     @BeforeEach
     public void setup() {
         testCard1 = new Card("title1");
+        testCard1.setCardFields(1,"title1","",0,100,false);
         testCard2 = new Card("title2");
+        testCard2.setCardFields(2,"title2","",0,100,false);
+
 
         testDeck1 = new CardDeck();
         testDeck1.addCard(testCard1);

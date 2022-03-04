@@ -1,14 +1,12 @@
 package model;
 
-import java.util.List;
-
 public class BoardSpace {
 
     private static int nextSpaceId = 1;  // tracks id of the next card item created
 
     int spaceId;
     Card card;
-    boolean isFound;
+    boolean foundStatus;
 
     /*
     * REQUIRES: no other board spaces have the same spaceID
@@ -18,7 +16,7 @@ public class BoardSpace {
     public BoardSpace() {
         spaceId = nextSpaceId++;
         card = new Card("");
-        isFound = false;
+        foundStatus = false;
     }
 
     // EFFECTS: returns the spaceID
@@ -33,7 +31,7 @@ public class BoardSpace {
 
     // EFFECTS: returns the found status
     public boolean isFound() {
-        return isFound;
+        return foundStatus;
     }
 
     // EFFECTS: sets the spaceID
@@ -47,7 +45,14 @@ public class BoardSpace {
     }
 
     // EFFECTS: sets the found status
-    public void setFound(boolean found) {
-        isFound = found;
+    public void setFoundStatus(boolean foundStatus) {
+        this.foundStatus = foundStatus;
+    }
+
+    // EFFECTS: sets all fields
+    public void setAllFields(int newSpaceId, Card newCard, Boolean newIsFound) {
+        spaceId = newSpaceId;
+        card = newCard;
+        foundStatus = newIsFound;
     }
 }
