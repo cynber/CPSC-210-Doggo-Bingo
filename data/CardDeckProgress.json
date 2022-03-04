@@ -1,11 +1,21 @@
 {
-    "cards": [{
-        "Use Count": 0,
-        "Points": 100,
-        "Description": "",
-        "cardID": 1,
-        "Title": "Apple",
-        "Favourite": false
-    }],
+    "cards": [
+        {
+            "Use Count": 0,
+            "Points": 100,
+            "Description": "",
+            "cardID": 1,
+            "Title": "Apple",
+            "Favourite": false
+        },
+        {
+            "Use Count": 0,
+            "Points": 100,
+            "Description": "Is yellow.",
+            "cardID": 103,
+            "Title": "Banana",
+            "Favourite": false
+        }
+    ],
     "deck name": "Deck Progress"
 }

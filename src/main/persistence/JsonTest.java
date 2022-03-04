@@ -2,7 +2,7 @@ package persistence;
 
 import model.Card;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class JsonTest {
     protected void checkCard(int cardId, String title, String description, int usedCount,
