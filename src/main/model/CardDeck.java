@@ -177,6 +177,11 @@ public class CardDeck implements Writable {
         return cardList.size();
     }
 
+    //EFFECTS: gets the card at index
+    public Card getCardIndex(int i) {
+        return cardList.get(i);
+    }
+
 
     // EFFECTS: creates a Json Object for the CardDeck
     @Override

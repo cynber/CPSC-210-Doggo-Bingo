@@ -22,14 +22,14 @@ public class Board {
         ArrayList<Card> cards;
         cards = deck.getCardDetails();
         gameBoard = new ArrayList<>();
-        if (Objects.equals(code, "p1")) {
-            boardSize = BOARD_P1;
-        } else if (Objects.equals(code, "p2")) {
-            boardSize = BOARD_P2;
-        } else if (Objects.equals(code, "p3")) {
-            boardSize = BOARD_P3;
-        } else if (Objects.equals(code, "p4")) {
+        if (Objects.equals(code, "p4")) {
             boardSize = BOARD_P4;
+//        } else if (Objects.equals(code, "p1")) { //TODO: add other board options
+//            boardSize = BOARD_P1;
+//        } else if (Objects.equals(code, "p2")) {
+//            boardSize = BOARD_P2;
+//        } else if (Objects.equals(code, "p3")) {
+//            boardSize = BOARD_P3;
         } else {
             System.out.println("Invalid."); // TODO make exception.
         }

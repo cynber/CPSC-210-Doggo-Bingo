@@ -7,6 +7,8 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CardDeckTest {
@@ -141,4 +143,37 @@ public class CardDeckTest {
     public void testGetFavouriteFromTitle() {
         assertFalse(testDeck2.getFavouriteFromTitle("title1"));
     }
+
+    @Test
+    public void testGetDeckSize() {
+        assertEquals(3,testDeck2.getDeckSize());
+        assertEquals(2,testDeck3.getDeckSize());
+        assertEquals(1,testDeck4.getDeckSize());
+    }
+
+    @Test
+    public void testGetCardDetails() {
+        ArrayList<Card> otherDeck;
+        otherDeck = testDeck2.getCardDetails();
+
+        assertEquals(otherDeck.size(),testDeck2.getDeckSize());
+        assertEquals(otherDeck.get(0),testDeck2.getCardIndex(0));
+        assertEquals(otherDeck.get(1),testDeck2.getCardIndex(1));
+        assertEquals(otherDeck.get(2),testDeck2.getCardIndex(2));
+    }
+
+    @Test
+    public void testSetCards() {
+        ArrayList<Card> otherDeck;
+        otherDeck = testDeck2.getCardDetails();
+        CardDeck thirdDeck = new CardDeck();
+        thirdDeck.setCards(otherDeck);
+
+        assertEquals(otherDeck.size(),testDeck2.getDeckSize());
+        assertEquals(otherDeck.get(0),testDeck2.getCardIndex(0));
+        assertEquals(otherDeck.get(1),testDeck2.getCardIndex(1));
+        assertEquals(otherDeck.get(2),testDeck2.getCardIndex(2));
+    }
+
+
 }
