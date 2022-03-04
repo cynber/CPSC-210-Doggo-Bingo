@@ -133,27 +133,37 @@ public class BingoGame {
         String command = input.next();
         command = command.toLowerCase();
         if (Objects.equals(gameMode, "p4")) {
-            if ("a1".equals(command)) {
-                bdMarks.set(0, "FOUND");
-            } else if ("a2".equals(command)) {
-                bdMarks.set(1, "FOUND");
-            } else if ("a3".equals(command)) {
-                bdMarks.set(2, "FOUND");
-            } else if ("a4".equals(command)) {
-                bdMarks.set(3, "FOUND");
-            } else if ("a5".equals(command)) {
-                bdMarks.set(4, "FOUND");
-            } else if ("a6".equals(command)) {
-                bdMarks.set(5, "FOUND");
-            } else if ("a7".equals(command)) {
-                bdMarks.set(6, "FOUND");
-            } else if ("a8".equals(command)) {
-                bdMarks.set(7, "FOUND");
-            } else if ("a9".equals(command)) {
-                bdMarks.set(8, "FOUND");
-            }
+            editBoardHalfOne(command);
+            editBoardHalfTwo(command);
         }
     }
+
+    private void editBoardHalfOne(String command) {     //TODO: check if we can suppress checkstyle for long switch
+        if ("a1".equals(command)) {
+            bdMarks.set(0, "FOUND");
+        } else if ("a2".equals(command)) {
+            bdMarks.set(1, "FOUND");
+        } else if ("a3".equals(command)) {
+            bdMarks.set(2, "FOUND");
+        } else if ("a4".equals(command)) {
+            bdMarks.set(3, "FOUND");
+        } else if ("a5".equals(command)) {
+            bdMarks.set(4, "FOUND");
+        }
+    }
+
+    private void editBoardHalfTwo(String command) {
+        if ("a6".equals(command)) {
+            bdMarks.set(5, "FOUND");
+        } else if ("a7".equals(command)) {
+            bdMarks.set(6, "FOUND");
+        } else if ("a8".equals(command)) {
+            bdMarks.set(7, "FOUND");
+        } else if ("a9".equals(command)) {
+            bdMarks.set(8, "FOUND");
+        }
+    }
+
 
     private void checkWin(String gameMode) { //TODO
 
