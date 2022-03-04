@@ -122,7 +122,7 @@ public class Card implements Writable {
      * EFFECTS: changes the pointsWorth value to EASY_WORTH,
        MED_WORTH, or HARD_WORTH for 1, 2, or 3 respectively
      */
-    public void setPoints(int points) {
+    public void setPointsFromCode(int points) {
         if (points == 1) {
             pointsWorth = EASY_WORTH;
         } else {
@@ -132,6 +132,14 @@ public class Card implements Writable {
                 pointsWorth = HARD_WORTH;
             }
         }
+    }
+
+    /*
+     * MODIFIES: this
+     * EFFECTS: changes the pointsWorth value to points
+     */
+    public void setPointsDirectly(int points) {
+        pointsWorth = points;
     }
 
     // EFFECTS: returns true if the card is marked as a favourite, else false
@@ -159,6 +167,17 @@ public class Card implements Writable {
     public void toggleFavourite() {
         isFavourite = !isFavourite;
     }
+
+    public void setCardFields(int newID, String newTitle, String newDescription,
+                              int newUsedCount, int newPointsWorth, Boolean newIsFavourite) {
+        id = newID;
+        title = newTitle;
+        description = newDescription;
+        usedCount = newUsedCount;
+        pointsWorth = newPointsWorth;
+        isFavourite = newIsFavourite;
+    }
+
 
     @Override
     public JSONObject toJson() {

@@ -1,0 +1,21 @@
+{
+    "cards": [
+        {
+            "Use Count": 0,
+            "Points": 50,
+            "Description": "This is warm.",
+            "cardID": 1,
+            "Title": "Cookie",
+            "Favourite": true
+        },
+        {
+            "Use Count": 2,
+            "Points": 100,
+            "Description": "This is cold.",
+            "cardID": 2,
+            "Title": "Ice Cream",
+            "Favourite": false
+        }
+    ],
+    "deck name": "My Card Deck"
+}

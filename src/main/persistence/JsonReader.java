@@ -41,6 +41,7 @@ public class JsonReader {
     private CardDeck parseCardDeck(JSONObject jsonObject) {
     //    int cardID = jsonObject.getInt("cardID");
         CardDeck cd = new CardDeck();
+        cd.setDeckName(jsonObject.getString("deck name"));
         addCards(cd, jsonObject);
         return cd;
     }
@@ -71,7 +72,7 @@ public class JsonReader {
         oneCard.setDescription(cardDescription);
         oneCard.setUsedCount(cardUsedCount);
     //  oneCard.setFoundCount(cardFoundCount);
-        oneCard.setPoints(cardPointsWorth);
+        oneCard.setPointsDirectly(cardPointsWorth);
         oneCard.setIsFavourite(cardIsFavourite);
         cd.addCard(oneCard);
     }

@@ -1,0 +1,21 @@
+{
+  "cards": [
+    {
+    "Use Count": 0,
+    "Points": 100,
+    "Description": "This is a berry.",
+    "cardID": 1,
+    "Title": "Blueberry",
+    "Favourite": false
+    },
+    {
+      "Use Count": 2,
+      "Points": 200,
+      "Description": "",
+      "cardID": 2,
+      "Title": "Apple",
+      "Favourite": true
+    }
+  ],
+  "deck name": "My Card Deck"
+}

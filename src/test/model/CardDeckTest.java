@@ -47,33 +47,33 @@ public class CardDeckTest {
         assertTrue(testDeck1.isEmpty());
         testDeck1.addCard(testCard1);
         assertTrue(testDeck1.containsCard(testCard1));
-        assertEquals(testDeck1.getSize(), 1);
+        assertEquals(testDeck1.getNumberOfCards(), 1);
         testDeck1.addCard(testCard2);
         assertTrue(testDeck1.containsCard(testCard1));
         assertTrue(testDeck1.containsCard(testCard2));
-        assertEquals(testDeck1.getSize(), 2);
+        assertEquals(testDeck1.getNumberOfCards(), 2);
     }
 
     @Test
     public void testRemoveCard() {
-        assertEquals(testDeck2.getSize(), 3);
+        assertEquals(testDeck2.getNumberOfCards(), 3);
 
         testDeck2.deleteCard(testCard2);  // second element added
-        assertEquals(testDeck2.getSize(), 2);
+        assertEquals(testDeck2.getNumberOfCards(), 2);
         assertFalse(testDeck2.containsCard(testCard2));
 
         testDeck2.deleteCard(testCard1);  // first element added
-        assertEquals(testDeck2.getSize(), 1);
+        assertEquals(testDeck2.getNumberOfCards(), 1);
         assertFalse(testDeck2.containsCard(testCard1));
 
         testDeck2.deleteCard(testCard3);  // last element added
-        assertEquals(testDeck2.getSize(), 0);
+        assertEquals(testDeck2.getNumberOfCards(), 0);
         assertFalse(testDeck2.containsCard(testCard1));
     }
 
     @Test
     public void testIsEmpty() {
-        assertEquals(testDeck2.getSize(), 3);
+        assertEquals(testDeck2.getNumberOfCards(), 3);
         testDeck2.deleteCard(testCard1);
         testDeck2.deleteCard(testCard2);
         testDeck2.deleteCard(testCard3);

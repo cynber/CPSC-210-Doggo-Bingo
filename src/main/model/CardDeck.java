@@ -45,7 +45,7 @@ public class CardDeck implements Writable {
     }
 
     //EFFECTS: checks the size of the deck (size of cardList)
-    public int getSize() {
+    public int getNumberOfCards() {
         return cardList.size();
     }
 
@@ -133,7 +133,7 @@ public class CardDeck implements Writable {
     //EFFECTS: edits the pointsWorth value of the card in this with matching title, with inputted points
     public void editPointsFromTitle(String title, int points) {
         Card i = getCardFromTitle(title);
-        i.setPoints(points);
+        i.setPointsFromCode(points);
     }
 
     //REQUIRES: card must exist in list
@@ -161,6 +161,18 @@ public class CardDeck implements Writable {
     public void setDeckName(String s) {
         deckName = s;
     }
+
+    //EFFECTS: gets the cards in deck
+    public ArrayList<Card> getCards() {
+        return cardList;
+    }
+
+    //EFFECTS: sets the cards in deck
+    public void setCards(ArrayList<Card> cl) {
+        cardList = cl;
+    }
+
+
 
     @Override
     public JSONObject toJson() {

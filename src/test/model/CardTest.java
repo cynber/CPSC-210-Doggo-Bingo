@@ -51,11 +51,11 @@ class CardTest {
     @Test
     public void testEditPoints() {
         assertEquals(testCard1.getPointsWorth(), 100);
-        testCard1.setPoints(1);
+        testCard1.setPointsFromCode(1);
         assertEquals(testCard1.getPointsWorth(), 50);
-        testCard1.setPoints(3);
+        testCard1.setPointsFromCode(3);
         assertEquals(testCard1.getPointsWorth(), 200);
-        testCard1.setPoints(2);
+        testCard1.setPointsFromCode(2);
         assertEquals(testCard1.getPointsWorth(), 100);
     }
 
