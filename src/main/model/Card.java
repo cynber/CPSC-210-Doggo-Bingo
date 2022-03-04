@@ -5,7 +5,7 @@ package model;
 // Created with assistance from TellerApp:
 //   https://github.students.cs.ubc.ca/CPSC210/TellerApp
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import org.json.JSONObject;
 import persistence.Writable;
 
