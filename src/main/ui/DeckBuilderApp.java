@@ -11,15 +11,18 @@ import persistence.JsonWriter;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class DeckBuilderApp {
     private CardDeck deck;
     private Scanner input;
-    private static final String JSON_STORE = "./data/CardDeck.json";
+    private static final String JSON_STORE = "./data/CardDeckProgress.json";
+    private static final String JSON_STORE_DOG = "./data/DogCardDeck.json";
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
+    private JsonReader jsonReaderDog;
 
     // EFFECTS: runs the Card Deck Builder application
     public DeckBuilderApp() {
@@ -62,35 +65,40 @@ public class DeckBuilderApp {
             if (deck.isEmpty()) {
                 System.out.println("There are no cards to view yet.");
             } else {
-                doViewCards();
+                displayViewOptions();
             }
         } else if ("s".equals(command)) {
             doSaveProgress();
         } else if ("l".equals(command)) {
-            doLoadProgress();
+            displayLoadOptions();
+        } else if ("p".equals(command)) {
+            new BingoGame();
+    //        System.out.println("game does not work yet...");
         } else {
             System.out.println("Selection not valid...");
         }
     }
 
     // MODIFIES: this
-    // EFFECTS: initializes deck
+    // EFFECTS: initializes deck, scanner, and reader / writer
     private void init() {
         deck = new CardDeck();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
+        jsonReaderDog = new JsonReader(JSON_STORE_DOG);
     }
 
     // EFFECTS: displays menu of options to user
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\ta -> add card to deck");
-        System.out.println("\te -> edit card");
-        System.out.println("\tv -> view all cards in deck");
+        System.out.println("\te -> edit card(s)");
+        System.out.println("\tv -> view card(s)");
         System.out.println("\ts -> save deck building progress");
-        System.out.println("\tl -> load deck building progress");
+        System.out.println("\tl -> load a deck");
+        System.out.println("\tp -> PLAY THE GAME");
         System.out.println("\tq -> quit");
     }
 
@@ -123,7 +131,7 @@ public class DeckBuilderApp {
             System.out.print("Which card do you want to edit?:\n");
             String title = input.next();
             if (deck.containsCardFromTitle(title)) {
-                dialogueEditCard();
+                displayEditOptions();
                 selection = input.next().toLowerCase();
                 switch (selection) {
                     case "d":
@@ -142,7 +150,7 @@ public class DeckBuilderApp {
         }
     }
 
-    private void dialogueEditCard() {
+    private void displayEditOptions() {
         System.out.print("\nWhat would you like to change?: \n");
         System.out.println("\td -> enter new description");
         System.out.println("\tp -> edit how many points the card is worth");
@@ -190,15 +198,44 @@ public class DeckBuilderApp {
         System.out.print("\"" + title + output);
     }
 
+    // EFFECTS: displays the load menu options
+    private void displayViewOptions() {
+        System.out.println("What would you like to view?");
+        System.out.println("t -> view card titles for all cards");
+        System.out.println("f -> view full card details for all cards");
+        String selection = input.next();
+        if (Objects.equals(selection, "t")) {
+            doViewCards();
+        } else {
+            doViewCardDetails();
+        }
+    }
+
     // EFFECTS: prints out the current list of card
     private void doViewCards() {
         System.out.println("\nThe current card(s) in the deck are: " + deck.getCardFromTitle());
     }
 
+    private void doViewCardDetails() {
+        ArrayList<Card> results;
+        results = deck.getCardDetails();
+        for (Card c : results) {
+            System.out.println("Title: " + c.getTitle());
+            System.out.println("Description: " + c.getDescription());
+            System.out.println("This card has been used " + c.getUsedCount() + " time(s).");
+        //  System.out.println("This card has been found " + c.getFoundCount() + " time(s).");
+            if (c.isFavourite()) {
+                System.out.println("This card is marked as a favourite.");
+            } else {
+                System.out.println("This card is NOT marked as a favourite.\n");
+            }
+        }
+    }
+
     // EFFECTS: saves the deck builder progress to file
     private void doSaveProgress() {
         try {
-            updateDeckName();
+    //        updateDeckName();         // TODO: Make custom save option
             jsonWriter.open();
             jsonWriter.writeCardDeck(deck);
             jsonWriter.close();
@@ -208,7 +245,7 @@ public class DeckBuilderApp {
         }
     }
 
-    private void updateDeckName() {
+    private void updateDeckName() {     // TODO: add rename method after custom save option
         String deckName = deck.getDeckName();
         if (Objects.equals(deckName, "")) {
             System.out.println("Please enter a name for this deck:\n");
@@ -218,7 +255,7 @@ public class DeckBuilderApp {
             System.out.println("Would you like to update the name? (y/n)");
             String selection = input.next();
             if (Objects.equals(selection, "y")) {
-                System.out.println("Enter a new name:\n");
+                System.out.println("Enter a new name:");
                 deckName = input.next();
                 deck.setDeckName(deckName);
             } else if (Objects.equals(selection, "n")) {
@@ -230,6 +267,22 @@ public class DeckBuilderApp {
         }
     }
 
+    // EFFECTS: displays the load menu options
+    private void displayLoadOptions() {
+        System.out.println("Would you like to load your progress or load a custom deck?");
+        System.out.println("p -> load deck building progress");
+        System.out.println("c -> load a custom deck");
+        String selection = input.next();
+        if (Objects.equals(selection, "p")) {
+            doLoadProgress();
+        } else {
+            System.out.println("There is only one custom deck currently:");
+            System.out.println("d -> Doggo Bingo");
+            System.out.println("Loading custom deck...");
+            doLoadCustom();
+        }
+    }
+
     // MODIFIES: this
     // EFFECTS: loads the deck builder progress from file
     private void doLoadProgress() {
@@ -238,6 +291,17 @@ public class DeckBuilderApp {
             System.out.println("Loaded " + deck.getDeckName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads the deck builder progress from file
+    private void doLoadCustom() {
+        try {
+            deck = jsonReaderDog.read();
+            System.out.println("Loaded " + deck.getDeckName() + " from " + JSON_STORE_DOG);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE_DOG);
         }
     }
 }

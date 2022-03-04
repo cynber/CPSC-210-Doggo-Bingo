@@ -56,7 +56,7 @@ public class JsonReader {
     }
 
     // MODIFIES: cd
-    // EFFECTS: parses thingy from JSON object and adds it to workroom
+    // EFFECTS: parses card from JSON object and adds it to card deck
     private void addCard(CardDeck cd, JSONObject jsonObject) {
         int cardId = jsonObject.getInt("cardID");
         String cardTitle = jsonObject.getString("Title");

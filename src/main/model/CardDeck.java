@@ -23,7 +23,7 @@ public class CardDeck implements Writable {
 
     public CardDeck() {
         cardList = new ArrayList<>();
-        deckName = "No Title";
+        deckName = "Deck Progress";
     }
 
     //REQUIRES: card with matching title must not already be in list
@@ -103,6 +103,10 @@ public class CardDeck implements Writable {
         return card;
     }
 
+    public ArrayList<Card> getCardDetails() {
+        return new ArrayList<Card>(cardList);
+    }
+
     //REQUIRES: card must exist in list
     //MODIFIES: card in this with matching title
     //EFFECTS: renames the card in this with matching title, with inputted description
@@ -176,6 +180,8 @@ public class CardDeck implements Writable {
 
         return jsonArray;
     }
+
+
 
     //TODO: find a way to measure how "well built" a deck is, possible metrics:
     //      - number of cards

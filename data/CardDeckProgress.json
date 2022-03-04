@@ -1,0 +1,11 @@
+{
+    "cards": [{
+        "Use Count": 0,
+        "Points": 100,
+        "Description": "",
+        "cardID": 1,
+        "Title": "Apple",
+        "Favourite": false
+    }],
+    "deck name": "Deck Progress"
+}

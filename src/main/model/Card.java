@@ -15,7 +15,6 @@ public class Card implements Writable {
     private static final int EASY_WORTH = 50;
 
     private static int nextCardId = 1;  // tracks id of the next card item created
-    //TODO: Check how nextCardId works, possibly use length of deck
 
     private int id;                     // card id
     private String title;               // the title of the card
