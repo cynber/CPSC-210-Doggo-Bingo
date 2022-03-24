@@ -86,10 +86,10 @@ public class BoardTest {
         checkCardandSpaceId(bdTest, c9, 8, 9);
     }
 
-    @Test
-    public void testMakeBoardBadCode() {
-        assertEquals("Invalid.",Board.makeBoard("junk",cd));
-    }
+//    @Test
+//    public void testMakeBoardBadCode() {
+//        assertEquals("Invalid.",Board.makeBoard("junk",cd));
+//    }
 
     private void checkCardandSpaceId(ArrayList<BoardSpace> bdTest, Card c1, int i, int i2) {
         assertEquals(c1, bdTest.get(i).getCard());

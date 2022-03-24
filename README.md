@@ -6,9 +6,12 @@
 
 **References:**
 
-// Created with assistance from TellerApp and JsonSerializationDemo:
-//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
-//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+Created with assistance from TellerApp and JsonSerializationDemo:
+* https://github.students.cs.ubc.ca/CPSC210/TellerApp
+* https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+Used resources from:
+* The splash screen image has been designed using resources from Flaticon.com (https://www.flaticon.com/free-icon/bingo_2038237)
 
 ---
 

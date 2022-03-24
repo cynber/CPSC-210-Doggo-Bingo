@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class DeckBuilderApp {
+public class AppDeckBuilder {
     private CardDeck deck;
     private Scanner input;
     private static final String JSON_STORE = "./data/CardDeckProgress.json";
@@ -27,7 +27,7 @@ public class DeckBuilderApp {
     private JsonReader jsonReaderDog;
 
     // EFFECTS: runs the Card Deck Builder application
-    public DeckBuilderApp() throws FileNotFoundException {
+    public AppDeckBuilder() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         jsonReaderDog = new JsonReader(JSON_STORE_DOG);
@@ -76,7 +76,7 @@ public class DeckBuilderApp {
         } else if ("s".equals(command) || "l".equals(command)) {
             processCommandSaveLoad(command);
         } else if ("p".equals(command)) {
-            new BingoGame();
+            new AppBingoGame();
         } else {
             System.out.println("Selection not valid...");
         }

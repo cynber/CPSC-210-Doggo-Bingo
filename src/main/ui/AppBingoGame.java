@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
 
-public class BingoGame {
+public class AppBingoGame {
     private CardDeck deck;
     private ArrayList<BoardSpace> bd;
     private ArrayList<String> bdMarks;
@@ -36,7 +36,7 @@ public class BingoGame {
     private JsonReader jsonReaderDog;
 
     // EFFECTS: runs the Bingo Game application
-    public BingoGame() throws FileNotFoundException {
+    public AppBingoGame() throws FileNotFoundException {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         jsonReaderDog = new JsonReader(JSON_STORE_DOG);

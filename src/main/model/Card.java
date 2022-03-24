@@ -118,6 +118,17 @@ public class Card implements Writable {
         return pointsWorth;
     }
 
+    // EFFECTS: returns the difficulty level
+    public String getDifficulty() {
+        if (pointsWorth == MED_WORTH) {
+            return "Medium";
+        } else if (pointsWorth == HARD_WORTH) {
+            return "Hard";
+        } else {
+            return "Easy";
+        }
+    }
+
     /*
      * REQUIRES: points must be an integer 1, 2, or 3
      * MODIFIES: this

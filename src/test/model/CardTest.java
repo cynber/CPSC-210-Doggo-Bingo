@@ -65,6 +65,21 @@ class CardTest {
     }
 
     @Test
+    public void testGetDifficulty() {
+        assertEquals(testCard1.getPointsWorth(), 100);
+        assertEquals(testCard1.getDifficulty(), "Medium");
+        testCard1.setPointsFromCode(1);
+        assertEquals(testCard1.getPointsWorth(), 50);
+        assertEquals(testCard1.getDifficulty(), "Easy");
+        testCard1.setPointsFromCode(3);
+        assertEquals(testCard1.getPointsWorth(), 200);
+        assertEquals(testCard1.getDifficulty(), "Hard");
+        testCard1.setPointsFromCode(2);
+        assertEquals(testCard1.getPointsWorth(), 100);
+        assertEquals(testCard1.getDifficulty(), "Medium");
+    }
+
+    @Test
     public void testToggleFavourite() {
         assertFalse(testCard1.isFavourite());
         testCard1.toggleFavourite();
