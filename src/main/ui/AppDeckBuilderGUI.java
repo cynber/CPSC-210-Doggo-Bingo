@@ -1,13 +1,24 @@
 package ui;
 
-// TOOK FROM:       C3-LectureLabSolution IntersectionGUI    & Sample code from project P3 page
-// https://stackoverflow.com/questions/15746984/how-to-run-jframe-maximized-in-java
-// https://docs.oracle.com/javase/tutorial/uiswing/components/html.html
-//     - for how to do font sizes
-// https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton
-//      - for how to do button size
-// https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create
-//      - for menu bar
+// Represents a graphical user interface that users can use to build decks
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// GUI created with assistance from following projects & code from Project Phase 3 page:
+//   https://github.students.cs.ubc.ca/CPSC210/C3-LectureLabSolution
+//   https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase
+//   https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+//   https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Complete
+//   https://learning.edge.edx.org/course/course-v1:UBC+CPSC210+all/block-v1:UBC+CPSC210+all+type@sequential+block
+//    @2319e011dd3848d5940b8d7aa19ad5d9/block-v1:UBC+CPSC210+all+type@vertical+block@45c6cfa614d8417ebcf74d1fed323c24
+
+// Also made with assistance from the following:
+// https://stackoverflow.com/questions/15746984/how-to-run-jframe-maximized-in-java   (for window formatting tips)
+// https://docs.oracle.com/javase/tutorial/uiswing/components/html.html               (for font editing)
+// https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton     (for button sizing)
+// https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create        (for menu bar)
 
 import model.Card;
 import model.CardDeck;
@@ -71,7 +82,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         initViewFrame();
         initMenus();
 
-        setLayout(new GridLayout(4,1));
+        setLayout(new GridLayout(4, 1));
 
         pack();
         setExtendedState(MAXIMIZED_BOTH);
@@ -79,9 +90,10 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         setResizable(true);
     }
 
+    // EFFECTS: creates the menu bar with 4 menu categories
     private void initMenus() {
         menuBar = new JMenuBar();
-        menuBar.setPreferredSize(new Dimension(100,30));
+        menuBar.setPreferredSize(new Dimension(100, 30));
 
         JMenu fileMenu = makeMenu("  File  ", KeyEvent.VK_F, "Menu for saving and loading decks from file.");
         JMenu editMenu = makeMenu("  Edit  ", KeyEvent.VK_E, "Menu for editing the deck and cards.");
@@ -105,27 +117,29 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         this.setJMenuBar(menuBar);
     }
 
-    private void makeMenuItem(JMenu fileMenu, String s, int vkS, int vk1, String s2, String saveDeck) {
-        JMenuItem saveDeckProgress = new JMenuItem(s, vkS);
-        saveDeckProgress.setAccelerator(KeyStroke.getKeyStroke(vk1, InputEvent.ALT_MASK));
-        saveDeckProgress.getAccessibleContext().setAccessibleDescription(s2);
-        saveDeckProgress.addActionListener(this);
-        saveDeckProgress.setActionCommand(saveDeck);
-        saveDeckProgress.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
-        fileMenu.add(saveDeckProgress);
+    // EFFECTS: creates individual menu bar items with a given category, name, keystroke,
+    //          secondary keystroke, accessibility text, and action
+    private void makeMenuItem(JMenu category, String s, int vkS, int vk1, String s2, String action) {
+        JMenuItem menuItem = new JMenuItem(s, vkS);
+        menuItem.setAccelerator(KeyStroke.getKeyStroke(vk1, InputEvent.ALT_MASK));
+        menuItem.getAccessibleContext().setAccessibleDescription(s2);
+        menuItem.addActionListener(this);
+        menuItem.setActionCommand(action);
+        menuItem.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        category.add(menuItem);
     }
 
+    // EFFECTS: creates menu bar categories with a given title, keystroke, and accessibility text
     private JMenu makeMenu(String s, int vkF, String s2) {
         JMenu menu = new JMenu(s);
         menu.setMnemonic(vkF);
-        menu.getAccessibleContext().setAccessibleDescription(
-                s2);
+        menu.getAccessibleContext().setAccessibleDescription(s2);
         menu.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
         menuBar.add(menu);
         return menu;
     }
 
-
+    // EFFECTS: creates the message frame
     private void initMessageFrame() {
         messageFrame = new JPanel();
         messageFrame.setSize(200, 200);
@@ -133,6 +147,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         messageFrame.setVisible(false);
     }
 
+    // EFFECTS: creates the view frame
     private void initViewFrame() {
         JFrame viewFrame = new JFrame("Card");
         viewFrame.setSize(400, 600);
@@ -141,6 +156,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         viewFrame.setVisible(false);
     }
 
+    // EFFECTS: creates the panel for the status text
     private void initStatus() {
         JPanel statusPanel = new JPanel();
         statusLabel = new JLabel("    Status: " + STATUS);
@@ -150,6 +166,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         statusPanel.add(statusLabel, BorderLayout.CENTER);
     }
 
+    // EFFECTS: creates the panel for card editing buttons and creates buttons to add, edit, and view cards
     private void initEditPanel() {
         JPanel deckEditPanel = new JPanel();
         deckEditPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -160,6 +177,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         makeButton("View Cards", "viewCards", deckEditPanel);
     }
 
+    // EFFECTS: creates the panel for persistence options, with buttons to save, clear and load decks
     private void initSaveLoadOptionsPanel() {
         JPanel saveLoadPanel = new JPanel();
         saveLoadPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -171,6 +189,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         makeButton("Load a custom Deck", "loadDeckC", saveLoadPanel);
     }
 
+    // EFFECTS: creates the panel for game play buttons with button to play game
     private void initGame() {
         JPanel gameplayPanel = new JPanel();
         gameplayPanel.setPreferredSize(new Dimension(WIDTH, HEIGHT));
@@ -179,10 +198,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         makeButton("Play Game", "playGame", gameplayPanel);
     }
 
-
-
-
-
+    // EFFECTS: creates a button with a given title, action, and panel location
     private void makeButton(String s, String action, JPanel deckEditPanel) {
         JButton newButton = new JButton(s);
         newButton.setFont(new Font("Arial", Font.PLAIN, 30));
@@ -201,6 +217,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         jsonReaderDog = new JsonReader(JSON_STORE_DOG);
     }
 
+    // EFFECTS: responds to button presses
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("addCard")) {
@@ -218,7 +235,6 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("loadDeckC")) {
             doLoadCustom();
         } else if (e.getActionCommand().equals("playGame")) {
-           // JOptionPane.showMessageDialog(messageFrame, "OPTION NOT AVAILABLE YET."); //TODO
             doPlayGame();
         } else if (e.getActionCommand().equals("notAvailable")) {
             JOptionPane.showMessageDialog(messageFrame,
@@ -254,14 +270,8 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         statusLabel.setText("Deck Builder Running...");
     }
 
-
-
-
-
-
     // MODIFIES: this
-    // EFFECTS: displays edit options to user and follows user input
-
+    // EFFECTS: displays edit options to user and follows user input to edit cards
     private void doEditCard() {
         statusLabel.setText("Opening Card Editor...");
 
@@ -283,12 +293,13 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         statusLabel.setText("Deck Builder Running...");
     }
 
+    // EFFECTS: displays editing GUI
     private void displayEditingWindow(String title) {
         Card c = deck.getCardFromTitle(title);
         new CardEditorGUI("Editing: " + c.getTitle(), c);
     }
 
-
+    // EFFECTS: displays view options to user and follows user input to view cards
     private void doViewDeck() {
         statusLabel.setText("Opening Card Viewer...");
 
@@ -309,13 +320,13 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         statusLabel.setText("Deck Builder Running...");
     }
 
-
-
+    // EFFECTS: displays card viewer GUI
     private void displayCardDetails(String title) {
         Card c = deck.getCardFromTitle(title);
         new CardViewerGUI(c.getTitle(), c);
     }
 
+    // EFFECTS: creates list of card titles
     private void doCardSelection() {
         ArrayList<Card> cards = deck.getCardDetails();
         ArrayList<String> titles = new ArrayList<>();
@@ -324,16 +335,6 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         }
         listOfTitles = titles.toArray();
     }
-
-
-
-
-
-
-
-
-
-
 
     // EFFECTS: saves the deck builder progress to file
     private void doSaveProgress() {
@@ -377,18 +378,13 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         }
     }
 
-
-
-
-
-
-
+    // EFFECTS: displays game play options and launches game GUI
     private void doPlayGame() {
         statusLabel.setText("Launching game...");
 
-        Object[] boardSizes = {grid9,grid25};
+        Object[] boardSizes = {grid9, grid25};
 
-        Object[] freeSpaces = { freeTrue,freeFalse};
+        Object[] freeSpaces = {freeTrue, freeFalse};
 
         Object size = JOptionPane.showInputDialog(null, "What size board do you want?",
                 "Card Viewer", QUESTION_MESSAGE, null, boardSizes, boardSizes[1]);
@@ -398,31 +394,32 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
                 "Card Viewer", QUESTION_MESSAGE, null, freeSpaces, freeSpaces[1]);
         String selectedFree = freeSpace.toString();
 
-        if (isEnoughCards(selectedSize,selectedFree)) {
+        if (isEnoughCards(selectedSize, selectedFree)) {
             //JOptionPane.showMessageDialog(messageFrame,"Deck is big enough. Game not yet available though...");
-            new BingoGameGUI(deck,selectedSize,selectedFree);
+            new BingoGameGUI(deck, selectedSize, selectedFree);
         } else {
-            JOptionPane.showMessageDialog(messageFrame,"Please add more cards to use this deck size.");
+            JOptionPane.showMessageDialog(messageFrame, "Please add more cards to use this deck size.");
         }
         statusLabel.setText("Deck Builder Running...");
     }
 
+    // EFFECTS: checks if deck has enough cards for selected option
     private boolean isEnoughCards(String size, String freeSpace) {
         int reqSize = 0;
 
         if (Objects.equals(size, grid9)) {
             reqSize += 9;
-        } else if (Objects.equals(size,grid25)) {
+        } else if (Objects.equals(size, grid25)) {
             reqSize += 25;
         }
-        if (Objects.equals(freeSpace,freeTrue)) {
+        if (Objects.equals(freeSpace, freeTrue)) {
             reqSize -= 1;
         }
         return deck.getDeckSize() >= reqSize;
     }
 
 
-    //    // MODIFIES: this
+//    // MODIFIES: this
 //    // EFFECTS: changes the title of the deck
 ////    private void updateDeckName() {     // TODO: add rename method after custom save option
 ////        String deckName = deck.getDeckName();

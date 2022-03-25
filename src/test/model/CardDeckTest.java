@@ -171,10 +171,10 @@ public class CardDeckTest {
         CardDeck thirdDeck = new CardDeck();
         thirdDeck.setCards(otherDeck);
 
-        assertEquals(otherDeck.size(),testDeck2.getDeckSize());
-        assertEquals(otherDeck.get(0),testDeck2.getCardIndex(0));
-        assertEquals(otherDeck.get(1),testDeck2.getCardIndex(1));
-        assertEquals(otherDeck.get(2),testDeck2.getCardIndex(2));
+        assertEquals(otherDeck.size(),thirdDeck.getDeckSize());
+        assertEquals(otherDeck.get(0),thirdDeck.getCardIndex(0));
+        assertEquals(otherDeck.get(1),thirdDeck.getCardIndex(1));
+        assertEquals(otherDeck.get(2),thirdDeck.getCardIndex(2));
     }
 
 

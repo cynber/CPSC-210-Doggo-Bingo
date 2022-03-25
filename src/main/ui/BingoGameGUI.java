@@ -1,7 +1,27 @@
 package ui;
 
-// GOT HELP FROM
-// - https://stackhowto.com/how-to-change-jbutton-text-on-click/
+// Represents a graphical user interface that users can use to play the game
+
+// Created with assistance from TellerApp and JsonSerializationDemo:
+//   https://github.students.cs.ubc.ca/CPSC210/TellerApp
+//   https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+
+// GUI created with assistance from following projects & code from Project Phase 3 page:
+//   https://github.students.cs.ubc.ca/CPSC210/C3-LectureLabSolution
+//   https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase
+//   https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+//   https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Complete
+//   https://learning.edge.edx.org/course/course-v1:UBC+CPSC210+all/block-v1:UBC+CPSC210+all+type@sequential+block
+//    @2319e011dd3848d5940b8d7aa19ad5d9/block-v1:UBC+CPSC210+all+type@vertical+block@45c6cfa614d8417ebcf74d1fed323c24
+
+// Also made with assistance from the following:
+// https://stackoverflow.com/questions/15746984/how-to-run-jframe-maximized-in-java   (for window formatting tips)
+// https://docs.oracle.com/javase/tutorial/uiswing/components/html.html               (for font editing)
+// https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton     (for button sizing)
+// https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create
+
+// This specific class was made with assistance from
+// https://stackhowto.com/how-to-change-jbutton-text-on-click/    (for changing JButton on click)
 
 import model.Card;
 import model.CardDeck;
@@ -21,11 +41,10 @@ public class BingoGameGUI extends JFrame implements ActionListener {
 
     private final int boardColumns;
     private final int boardRows;
-
-    private CardDeck deck;
+    private final CardDeck deck;
+    private final String boardSize;
+    private final String boardFree;
     private ArrayList<Card> shuffledDeck;
-    private String boardSize;
-    private String boardFree;
 
     String grid9 = "3x3 (need >=9 cards)";
     String grid25 = "5x5 (need >=25 cards)";
@@ -34,6 +53,7 @@ public class BingoGameGUI extends JFrame implements ActionListener {
 
     JPanel gamePanel;
 
+    // EFFECTS: creates game board
     public BingoGameGUI(CardDeck deckImport, String selectedSize, String selectedFree) {
         super("Bingo Game");
 
@@ -47,7 +67,7 @@ public class BingoGameGUI extends JFrame implements ActionListener {
 
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
 
-        gamePanel.setLayout(new GridLayout(boardRows,boardColumns));
+        gamePanel.setLayout(new GridLayout(boardRows, boardColumns));
 
         shuffledDeck = makeShuffledDeck(deck);
 
@@ -63,34 +83,41 @@ public class BingoGameGUI extends JFrame implements ActionListener {
         setResizable(true);
     }
 
+    // EFFECTS: adds first half of game board buttons
     private void makeHalfDeckFirst() {
         for (int i = 0; i <= (boardColumns * boardRows) / 2 - 1; i++) {
             String title = shuffledDeck.get(i).getTitle();
-            makeButton(title, "openCell", gamePanel);
+            makeButton(title, gamePanel, false);
         }
     }
 
+    // EFFECTS: adds middle game button (either FREE or next card)
     private void makeFreeSpace() {
         if (Objects.equals(boardFree, freeTrue)) {
-            makeButton("FREE", "openCell", gamePanel);
+            makeButton("FREE", gamePanel, true);
         } else {
             String title = shuffledDeck.get((boardColumns * boardRows) / 2).getTitle();
-            makeButton(title, "openCell", gamePanel);
+            makeButton(title, gamePanel, false);
         }
     }
 
+    // EFFECTS: adds second half of game baord buttons
     private void makeHalfDeckSecond() {
         for (int i = (boardColumns * boardRows) / 2 + 1; i <= (boardColumns * boardRows) - 1; i++) {
             String title = shuffledDeck.get(i).getTitle();
-            makeButton(title, "openCell", gamePanel);
+            makeButton(title, gamePanel, false);
         }
     }
 
-    private void makeButton(String s, String action, JPanel deckEditPanel) {
+    // EFFECTS: makes a game board button with a name, panel, and mark status
+    private void makeButton(String s, JPanel deckEditPanel, Boolean marked) {
         JButton newButton = new JButton(s);
         newButton.setFont(new Font("Arial", Font.PLAIN, 20));
-        newButton.setActionCommand(action);
+        newButton.setActionCommand("openCell");
         Color ogColor = newButton.getBackground();
+        if (marked) {
+            newButton.setBackground(Color.black);
+        }
         newButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (newButton.getBackground() == Color.black) {
@@ -104,16 +131,18 @@ public class BingoGameGUI extends JFrame implements ActionListener {
         gamePanel.add(newButton);
     }
 
-    private ArrayList<Card> makeShuffledDeck(CardDeck unshuffledDeck) {
-        ArrayList<Card> input = deck.getCardDetails();
+    // EFFECTS: creates a shuffled set of cards for game board to use
+    private ArrayList<Card> makeShuffledDeck(CardDeck inputDeck) {
+        ArrayList<Card> input = inputDeck.getCardDetails();
         Collections.shuffle(input);
-        ArrayList<Card> output = new ArrayList<Card>();
+        ArrayList<Card> output = new ArrayList<>();
         for (int i = 1; i <= (boardColumns * boardRows); i++) {
             output.add(input.get(i));
         }
         return output;
     }
 
+    // EFFECTS: calculates the number of game board rows
     private int getBoardRows() {
         int value = 0;
         if (Objects.equals(boardSize, grid9)) {
@@ -124,6 +153,7 @@ public class BingoGameGUI extends JFrame implements ActionListener {
         return value;
     }
 
+    // EFFECTS: calculates the number of game board columns
     private int getBoardColumns() {
         int value = 0;
         if (Objects.equals(boardSize, grid9)) {
@@ -134,6 +164,7 @@ public class BingoGameGUI extends JFrame implements ActionListener {
         return value;
     }
 
+    // EFFECTS: follows user actions
     @Override
     public void actionPerformed(ActionEvent e) {
     }

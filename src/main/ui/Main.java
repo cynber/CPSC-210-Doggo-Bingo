@@ -11,7 +11,7 @@ import java.io.FileNotFoundException;
 public class Main {
     public static void main(String[] args) {
         try {
-   //         new DeckBuilderApp();
+            //         new DeckBuilderApp();
             new SplashScreenGUI("Loading...");
             new AppDeckBuilderGUI("Bingo Deck Builder");
         } catch (FileNotFoundException e) {

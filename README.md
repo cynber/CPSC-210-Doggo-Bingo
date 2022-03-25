@@ -6,12 +6,7 @@
 
 **References:**
 
-Created with assistance from TellerApp and JsonSerializationDemo:
-* https://github.students.cs.ubc.ca/CPSC210/TellerApp
-* https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
-
-Used resources from:
-* The splash screen image has been designed using resources from Flaticon.com (https://www.flaticon.com/free-icon/bingo_2038237)
+See bottom of page for full reference list.
 
 ---
 
@@ -117,3 +112,32 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 * As a user, I want to be able to save my deck building progress to a file
 * As a user, I want to be able to load my deck building progress from a file
 * As a user, I want to be able to load a custom preset deck of cards from a file
+
+---
+
+**References:**
+
+Created with assistance from following CPSC 210 UBC projects and course pages
+* https://github.students.cs.ubc.ca/CPSC210/TellerApp
+* https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo
+* https://github.students.cs.ubc.ca/CPSC210/C3-LectureLabSolution
+* https://github.students.cs.ubc.ca/CPSC210/B02-SpaceInvadersBase
+* https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
+* https://github.students.cs.ubc.ca/CPSC210/SimpleDrawingPlayer-Complete
+* https://learning.edge.edx.org/course/course-v1:UBC+CPSC210+all/block-v1:UBC+CPSC210+all+type@sequential+block@2319e011dd3848d5940b8d7aa19ad5d9/block-v1:UBC+CPSC210+all+type@vertical+block@45c6cfa614d8417ebcf74d1fed323c24
+
+Also made with assistance from the following:
+* https://stackoverflow.com/questions/15746984/how-to-run-jframe-maximized-in-java   (for window formatting tips)
+* https://docs.oracle.com/javase/tutorial/uiswing/components/html.html               (for font editing)
+* https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton     (for button sizing)
+* https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create  (for menu bar)
+* https://stackhowto.com/how-to-change-jbutton-text-on-click/    (for changing jbutton on click)
+* https://stackoverflow.com/questions/16134549/how-to-make-a-splash-screen-for-gui  (for general splash screen tips)
+* https://stackoverflow.com/questions/8701716/how-to-remove-title-bar-in-jframe     (for removing title bars)
+* https://stackoverflow.com/questions/11844927/java-transparent-window              (for making window transparent)
+
+
+Used resources from:
+* The splash screen image has been designed using resources from Flaticon.com (https://www.flaticon.com/free-icon/bingo_2038237)
+
+---
