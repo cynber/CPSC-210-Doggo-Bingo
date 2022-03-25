@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
@@ -44,12 +45,12 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
 
     private JPanel messageFrame;
     private JLabel statusLabel;
-
     private JMenuBar menuBar;
-    private JMenu submenu;
-    private JMenuItem menuItem;
-    private JRadioButtonMenuItem rbMenuItem;
-    private JCheckBoxMenuItem cbMenuItem;
+
+    String grid9 = "3x3 (need >=9 cards)";
+    String grid25 = "5x5 (need >=25 cards)";
+    String freeTrue = "Add a FREE space";
+    String freeFalse = "No FREE spaces";
 
     // EFFECTS: runs the Card Deck Builder application
     public AppDeckBuilderGUI(String title) throws FileNotFoundException {
@@ -217,17 +218,13 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         } else if (e.getActionCommand().equals("loadDeckC")) {
             doLoadCustom();
         } else if (e.getActionCommand().equals("playGame")) {
-            JOptionPane.showMessageDialog(messageFrame, "OPTION NOT AVAILABLE YET."); //TODO
+           // JOptionPane.showMessageDialog(messageFrame, "OPTION NOT AVAILABLE YET."); //TODO
+            doPlayGame();
         } else if (e.getActionCommand().equals("notAvailable")) {
             JOptionPane.showMessageDialog(messageFrame,
                     "OPTION NOT AVAILABLE YET AS ASSIGNMENT DOES NOT ALLOW FEATURE"); //TODO
         }
     }
-
-
-
-
-
 
     // MODIFIES: this
     // EFFECTS: adds a card to the deck
@@ -385,6 +382,44 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
 
 
 
+
+    private void doPlayGame() {
+        statusLabel.setText("Launching game...");
+
+        Object[] boardSizes = {grid9,grid25};
+
+        Object[] freeSpaces = { freeTrue,freeFalse};
+
+        Object size = JOptionPane.showInputDialog(null, "What size board do you want?",
+                "Card Viewer", QUESTION_MESSAGE, null, boardSizes, boardSizes[1]);
+        String selectedSize = size.toString();
+
+        Object freeSpace = JOptionPane.showInputDialog(null, "Free spaces?",
+                "Card Viewer", QUESTION_MESSAGE, null, freeSpaces, freeSpaces[1]);
+        String selectedFree = freeSpace.toString();
+
+        if (isEnoughCards(selectedSize,selectedFree)) {
+            //JOptionPane.showMessageDialog(messageFrame,"Deck is big enough. Game not yet available though...");
+            new BingoGameGUI(deck,selectedSize,selectedFree);
+        } else {
+            JOptionPane.showMessageDialog(messageFrame,"Please add more cards to use this deck size.");
+        }
+        statusLabel.setText("Deck Builder Running...");
+    }
+
+    private boolean isEnoughCards(String size, String freeSpace) {
+        int reqSize = 0;
+
+        if (Objects.equals(size, grid9)) {
+            reqSize += 9;
+        } else if (Objects.equals(size,grid25)) {
+            reqSize += 25;
+        }
+        if (Objects.equals(freeSpace,freeTrue)) {
+            reqSize -= 1;
+        }
+        return deck.getDeckSize() >= reqSize;
+    }
 
 
     //    // MODIFIES: this
