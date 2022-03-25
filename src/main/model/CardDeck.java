@@ -17,12 +17,6 @@ public class CardDeck implements Writable {
     String deckName;
     ArrayList<Card> cardList;
 
-//    private static final int REQ_TEST_BOARD = 5;
-//    private static final int REQ_SIZE_5_5_YES_FREE = 24;
-//    private static final int REQ_SIZE_5_5_NO_FREE = 25;
-//  TODO: find a way to make one method to test any of the preset board sizes at top
-
-
     public CardDeck() {
         cardList = new ArrayList<>();
         deckName = "Deck Progress";
@@ -71,27 +65,27 @@ public class CardDeck implements Writable {
         return false;
     }
 
-    //REQUIRES: there are 1+ items in the deck
-    //EFFECTS: returns a string representation of item titles, separated by commas.
-    public String getCardFromTitle() {
-        String titles = "";
-        int count = cardList.size();
-        if (cardList.size() == 1) {
-            for (Card i : cardList) {
-                titles += "\"" + i.getTitle() + "\"" + ".";
-            }
-        } else {
-            for (Card i : cardList) {
-                if (count > 1) {
-                    titles += "\"" + i.getTitle() + "\"" + ", ";
-                    count -= 1;
-                } else {
-                    titles += "and \"" + i.getTitle() + "\"" + ".";
-                }
-            }
-        }
-        return titles;
-    }
+//    //REQUIRES: there are 1+ items in the deck
+//    //EFFECTS: returns a string representation of item titles, separated by commas.
+//    public String getCardFromTitle() {
+//        String titles = "";
+//        int count = cardList.size();
+//        if (cardList.size() == 1) {
+//            for (Card i : cardList) {
+//                titles += "\"" + i.getTitle() + "\"" + ".";
+//            }
+//        } else {
+//            for (Card i : cardList) {
+//                if (count > 1) {
+//                    titles += "\"" + i.getTitle() + "\"" + ", ";
+//                    count -= 1;
+//                } else {
+//                    titles += "and \"" + i.getTitle() + "\"" + ".";
+//                }
+//            }
+//        }
+//        return titles;
+//    }
 
     //REQUIRES: card must exist in list
     //EFFECTS: returns the card with the matching title
@@ -106,7 +100,7 @@ public class CardDeck implements Writable {
     }
 
     public ArrayList<Card> getCardDetails() {
-        return new ArrayList<Card>(cardList);
+        return new ArrayList<>(cardList);
     }
 
     //REQUIRES: card must exist in list
@@ -204,11 +198,4 @@ public class CardDeck implements Writable {
 
         return jsonArray;
     }
-
-
-
-    //TODO: find a way to measure how "well built" a deck is, possible metrics:
-    //      - number of cards
-    //      - number of cards with descriptions
-    //      - number of cards with images (if we add images)
 }

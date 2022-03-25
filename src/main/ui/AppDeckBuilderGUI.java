@@ -6,6 +6,8 @@ package ui;
 //     - for how to do font sizes
 // https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton
 //      - for how to do button size
+// https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create
+//      - for menu bar
 
 import model.Card;
 import model.CardDeck;
@@ -17,6 +19,8 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,24 +30,26 @@ import static javax.swing.JOptionPane.QUESTION_MESSAGE;
 
 public class AppDeckBuilderGUI extends JFrame implements ActionListener {
     private static final String STATUS = "Deck Builder Running...";
-    private static final String JSON_STORE = "./data/CardDeckProgress.json";
-    private static final String JSON_STORE_DOG = "./data/DogCardDeck.json";
-
     private static final int WIDTH = 800;
     private static final int HEIGHT = 600;
+
+    private static final String JSON_STORE = "./data/CardDeckProgress.json";
+    private static final String JSON_STORE_DOG = "./data/DogCardDeck.json";
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+    private JsonReader jsonReaderDog;
 
     private CardDeck deck;
     private Object[] listOfTitles;
 
     private JPanel messageFrame;
-    private JFrame viewFrame;
-
     private JLabel statusLabel;
 
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
-    private JsonReader jsonReaderDog;
-
+    private JMenuBar menuBar;
+    private JMenu submenu;
+    private JMenuItem menuItem;
+    private JRadioButtonMenuItem rbMenuItem;
+    private JCheckBoxMenuItem cbMenuItem;
 
     // EFFECTS: runs the Card Deck Builder application
     public AppDeckBuilderGUI(String title) throws FileNotFoundException {
@@ -62,6 +68,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
 
         initMessageFrame();
         initViewFrame();
+        initMenus();
 
         setLayout(new GridLayout(4,1));
 
@@ -71,7 +78,51 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         setResizable(true);
     }
 
+    private void initMenus() {
+        menuBar = new JMenuBar();
+        menuBar.setPreferredSize(new Dimension(100,30));
 
+        JMenu fileMenu = makeMenu("  File  ", KeyEvent.VK_F, "Menu for saving and loading decks from file.");
+        JMenu editMenu = makeMenu("  Edit  ", KeyEvent.VK_E, "Menu for editing the deck and cards.");
+        JMenu viewMenu = makeMenu("  View  ", KeyEvent.VK_V, "Menu for viewing information for deck and cards.");
+        JMenu helpMenu = makeMenu("  Help  ", KeyEvent.VK_H, "Menu for getting help resources.");
+        //TODO: update with methods to edit & view deck info
+
+        makeMenuItem(fileMenu, "Save Deck Progress", KeyEvent.VK_S, KeyEvent.VK_1,
+                "Saves Deck Progress", "saveDeck");
+        makeMenuItem(fileMenu, "Load Deck Progress", KeyEvent.VK_P, KeyEvent.VK_2,
+                "Loads Deck Progress", "loadDeckP");
+        makeMenuItem(fileMenu, "Load Custom Deck", KeyEvent.VK_C, KeyEvent.VK_3,
+                "Loads a custom deck", "loadDeckC");
+        makeMenuItem(editMenu, "Edit a Card", KeyEvent.VK_E, KeyEvent.VK_4,
+                "Opens card editor", "editCard");
+        makeMenuItem(viewMenu, "View a Card", KeyEvent.VK_V, KeyEvent.VK_5,
+                "Opens card viewer", "viewCards");
+        makeMenuItem(helpMenu, "Help Building Decks", KeyEvent.VK_H, KeyEvent.VK_6,
+                "Opens help page for deck building", "notAvailable");
+
+        this.setJMenuBar(menuBar);
+    }
+
+    private void makeMenuItem(JMenu fileMenu, String s, int vkS, int vk1, String s2, String saveDeck) {
+        JMenuItem saveDeckProgress = new JMenuItem(s, vkS);
+        saveDeckProgress.setAccelerator(KeyStroke.getKeyStroke(vk1, InputEvent.ALT_MASK));
+        saveDeckProgress.getAccessibleContext().setAccessibleDescription(s2);
+        saveDeckProgress.addActionListener(this);
+        saveDeckProgress.setActionCommand(saveDeck);
+        saveDeckProgress.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        fileMenu.add(saveDeckProgress);
+    }
+
+    private JMenu makeMenu(String s, int vkF, String s2) {
+        JMenu menu = new JMenu(s);
+        menu.setMnemonic(vkF);
+        menu.getAccessibleContext().setAccessibleDescription(
+                s2);
+        menu.setFont(new Font("Sans-Serif", Font.PLAIN, 20));
+        menuBar.add(menu);
+        return menu;
+    }
 
 
     private void initMessageFrame() {
@@ -82,7 +133,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
     }
 
     private void initViewFrame() {
-        viewFrame = new JFrame("Card");
+        JFrame viewFrame = new JFrame("Card");
         viewFrame.setSize(400, 600);
         viewFrame.setFont(new Font("Sans-Serif", Font.PLAIN, 12));
         viewFrame.setLocationRelativeTo(null);
@@ -167,6 +218,9 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
             doLoadCustom();
         } else if (e.getActionCommand().equals("playGame")) {
             JOptionPane.showMessageDialog(messageFrame, "OPTION NOT AVAILABLE YET."); //TODO
+        } else if (e.getActionCommand().equals("notAvailable")) {
+            JOptionPane.showMessageDialog(messageFrame,
+                    "OPTION NOT AVAILABLE YET AS ASSIGNMENT DOES NOT ALLOW FEATURE"); //TODO
         }
     }
 
