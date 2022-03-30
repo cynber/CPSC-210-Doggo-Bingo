@@ -27,6 +27,7 @@ public class CardDeck implements Writable {
     //EFFECTS: add the card into the deck
     public void addCard(Card i) {
         cardList.add(i);
+        EventLog.getInstance().logEvent(new Event("Added Card '" + i.getTitle() + "'"));
     }
 
     //MODIFIES: this
@@ -166,6 +167,12 @@ public class CardDeck implements Writable {
     //EFFECTS: sets the cards in deck
     public void setCards(ArrayList<Card> cl) {
         cardList = cl;
+    }
+
+    //EFFECTS: clears the deck
+    public void clearDeck() {
+        cardList = new ArrayList<Card>();
+        EventLog.getInstance().logEvent(new Event("Deck has been cleared."));
     }
 
     //EFFECTS: gets the size of the deck

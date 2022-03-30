@@ -68,7 +68,9 @@ public class Card implements Writable {
      * EFFECTS: title is set to newTitle
      */
     public void setTitle(String newTitle) {
+        String oldTitle = title;
         title = newTitle;
+        EventLog.getInstance().logEvent(new Event("Edited title of '" + oldTitle + "' to '" + title + "'"));
     }
 
     // EFFECTS: returns the description
@@ -83,6 +85,8 @@ public class Card implements Writable {
      */
     public void setDescription(String newDescription) {
         description = newDescription;
+        EventLog.getInstance().logEvent(new Event("Updated Description of '"
+                + this.getTitle() + "' to '" + description + "'"));
     }
 
     // EFFECTS: returns the count of how many times the card has been used
@@ -138,11 +142,17 @@ public class Card implements Writable {
     public void setPointsFromCode(int points) {
         if (points == 1) {
             pointsWorth = EASY_WORTH;
+            EventLog.getInstance().logEvent(new Event("Set difficulty of '"
+                    + this.getTitle() + "' to 'Easy'"));
         } else {
             if (points == 2) {
                 pointsWorth = MED_WORTH;
+                EventLog.getInstance().logEvent(new Event("Set difficulty of '"
+                        + this.getTitle() + "' to 'Medium'"));
             } else {
                 pointsWorth = HARD_WORTH;
+                EventLog.getInstance().logEvent(new Event("Set difficulty of '"
+                        + this.getTitle() + "' to 'Hard'"));
             }
         }
     }
@@ -166,6 +176,8 @@ public class Card implements Writable {
      */
     public void setIsFavourite(Boolean newIsFavourite) {
         isFavourite = newIsFavourite;
+        EventLog.getInstance().logEvent(new Event("Set favourite status of '"
+                + this.getTitle() + "' to '" + this.isFavourite + "'"));
     }
 
     /*
@@ -181,6 +193,8 @@ public class Card implements Writable {
     // EFFECTS: toggle the favourite status
     public void toggleFavourite() {
         isFavourite = !isFavourite;
+        EventLog.getInstance().logEvent(new Event("Toggled favourite status of'"
+                + this.getTitle() + "' to '" + this.isFavourite + "'"));
     }
 
     // MODIFIES: this

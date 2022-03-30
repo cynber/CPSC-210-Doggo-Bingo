@@ -19,9 +19,13 @@ package ui;
 // https://docs.oracle.com/javase/tutorial/uiswing/components/html.html               (for font editing)
 // https://stackoverflow.com/questions/20462167/increasing-font-size-in-a-jbutton     (for button sizing)
 // https://docs.oracle.com/javase/tutorial/uiswing/components/menu.html#create        (for menu bar)
+// https://stackoverflow.com/questions/60516720/java-how-to-print-message-when-a-jframe-is-closed
+//          (for printing log when closing application)
 
 import model.Card;
 import model.CardDeck;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 
@@ -67,10 +71,30 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
     public AppDeckBuilderGUI(String title) throws FileNotFoundException {
         super(title);
 
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                printLog(EventLog.getInstance());
+                System.exit(0);
+            }
+        });
+
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         ((JPanel) getContentPane()).setBorder(new EmptyBorder(13, 13, 13, 13));
 
+        initAll();
+
+        setLayout(new GridLayout(4, 1));
+
+        pack();
+        setExtendedState(MAXIMIZED_BOTH);
+        setVisible(true);
+        setResizable(true);
+    }
+
+    private void initAll() {
         initStatus();
         initEditPanel();
         initSaveLoadOptionsPanel();
@@ -81,13 +105,6 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         initMessageFrame();
         initViewFrame();
         initMenus();
-
-        setLayout(new GridLayout(4, 1));
-
-        pack();
-        setExtendedState(MAXIMIZED_BOTH);
-        setVisible(true);
-        setResizable(true);
     }
 
     // EFFECTS: creates the menu bar with 4 menu categories
@@ -113,6 +130,8 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
                 "Opens card viewer", "viewCards");
         makeMenuItem(helpMenu, "Help Building Decks", KeyEvent.VK_H, KeyEvent.VK_6,
                 "Opens help page for deck building", "notAvailable");
+        makeMenuItem(helpMenu, "Print Log", KeyEvent.VK_L, KeyEvent.VK_7,
+                "Prints log to console", "printLog");
 
         this.setJMenuBar(menuBar);
     }
@@ -236,6 +255,8 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
             doLoadCustom();
         } else if (e.getActionCommand().equals("playGame")) {
             doPlayGame();
+        } else if (e.getActionCommand().equals("printLog")) {
+            printLog(EventLog.getInstance());
         } else if (e.getActionCommand().equals("notAvailable")) {
             JOptionPane.showMessageDialog(messageFrame,
                     "OPTION NOT AVAILABLE YET AS ASSIGNMENT DOES NOT ALLOW FEATURE"); //TODO
@@ -352,7 +373,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
     // MODIFIES: this
     // EFFECTS: removes all cards from current deck
     private void doClearDeck() {
-        deck = new CardDeck();
+        deck.clearDeck();
         statusLabel.setText("All cards have been cleared from current deck.");
     }
 
@@ -417,6 +438,13 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         }
         return deck.getDeckSize() >= reqSize;
     }
+
+    public void printLog(EventLog el) {
+        for (Event next : el) {
+            System.out.println(next.toString() + "\n\n");
+        }
+    }
+
 
 
 //    // MODIFIES: this

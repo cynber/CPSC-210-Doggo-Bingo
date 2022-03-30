@@ -96,25 +96,6 @@ grid size. For now, the game will only include a basic 5x5 grid with a "FREE" sp
 ---
 ---
 
-&nbsp;
-
-###User Stories P1:
-
-* As a user, I want to be able to add an arbitrary number of items to my bingo board deck.
-* As a user, I want to be able to be able to edit the description of each card.
-* As a user, I want to be able to toggle favourite status of each card.
-* As a user, I want to edit the number of points a card is worth based on difficulty (3 levels).
-* As a user, I want to be able to view the titles of the items added so far. 
-
-
-###User Stories P2:
-
-* As a user, I want to be able to save my deck building progress to a file
-* As a user, I want to be able to load my deck building progress from a file
-* As a user, I want to be able to load a custom preset deck of cards from a file
-
----
-
 **References:**
 
 Created with assistance from following CPSC 210 UBC projects and course pages
@@ -135,9 +116,79 @@ Also made with assistance from the following:
 * https://stackoverflow.com/questions/16134549/how-to-make-a-splash-screen-for-gui  (for general splash screen tips)
 * https://stackoverflow.com/questions/8701716/how-to-remove-title-bar-in-jframe     (for removing title bars)
 * https://stackoverflow.com/questions/11844927/java-transparent-window              (for making window transparent)
+* https://stackoverflow.com/questions/60516720/java-how-to-print-message-when-a-jframe-is-closed   (for printing log 
+  when closing application)
 
 
 Used resources from:
 * The splash screen image has been designed using resources from Flaticon.com (https://www.flaticon.com/free-icon/bingo_2038237)
 
 ---
+
+
+&nbsp;
+
+###User Stories P1:
+
+* As a user, I want to be able to add an arbitrary number of items to my bingo board deck.
+* As a user, I want to be able to be able to edit the description of each card.
+* As a user, I want to be able to toggle favourite status of each card.
+* As a user, I want to edit the number of points a card is worth based on difficulty (3 levels).
+* As a user, I want to be able to view the titles of the items added so far.
+
+
+###User Stories P2:
+
+* As a user, I want to be able to save my deck building progress to a file
+* As a user, I want to be able to load my deck building progress from a file
+* As a user, I want to be able to load a custom preset deck of cards from a file
+
+###Selected User Stories for P3:
+
+* As a user, I want to be able to use the GUI to add a card to the deck
+* As a user, I want to be able to use the GUI to edit a card's description, difficulty and favourite status
+* As a user, I want to be able to use the GUI to save my deck building progress to a file
+* As a user, I want to be able to use the GUI to load my deck building progress from a file
+* As a user, I want to be able to use the GUI to load a custom preset deck of cards from a file
+
+###Selected User Stories for P4:
+
+* As a user, I want to be able to log when a card is added to the deck
+* As a user, I want to be able to log when the deck is cleared
+* As a user, I want to be able to log when a card is edited
+
+####Phase 4: Task 2
+
+
+Tue Mar 29 17:50:37 PDT 2022
+Added Card 'Apple'
+
+
+Tue Mar 29 17:50:38 PDT 2022
+Deck has been cleared.
+
+
+Tue Mar 29 17:50:43 PDT 2022
+Added Card 'Orange'
+
+
+Tue Mar 29 17:50:48 PDT 2022
+Added Card 'Nectarine'
+
+
+Tue Mar 29 17:51:06 PDT 2022
+Updated Description of 'Nectarine' to 'This fruit is red and orange.'
+
+
+Tue Mar 29 17:51:08 PDT 2022
+Set difficulty of 'Nectarine' to 'Medium'
+
+
+Tue Mar 29 17:51:09 PDT 2022
+Set favourite status of 'Nectarine' to 'true'
+
+
+
+Process finished with exit code 0
+
+`
