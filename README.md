@@ -190,5 +190,3 @@ Set favourite status of 'Nectarine' to 'true'
 
 
 Process finished with exit code 0
-
-`

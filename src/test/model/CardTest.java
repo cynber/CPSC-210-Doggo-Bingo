@@ -9,6 +9,9 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class CardTest {
@@ -16,6 +19,7 @@ class CardTest {
     Card testCard1;
     Card testCard2;
     CardDeck testDeck1;
+    EventLog el;
 
     @BeforeEach
     public void setup() {
@@ -24,10 +28,11 @@ class CardTest {
         testCard2 = new Card("title2");
         testCard2.setCardFields(2,"title2","",0,100,false);
 
-
         testDeck1 = new CardDeck();
         testDeck1.addCard(testCard1);
         testDeck1.addCard(testCard2);
+
+        el = EventLog.getInstance();
     }
 
     @Test
@@ -94,4 +99,72 @@ class CardTest {
         assertEquals(testCard2.getId(), 2);
     }
 
+    @Test
+    public void testLogEditDescription() {
+        el.clear();
+        testCard1.setDescription("Hello");
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(1).toString().contains("Updated Description of 'title1' to 'Hello'"));
+    }
+
+
+    @Test
+    public void testLogSetPointsFromCode() {
+        el.clear();
+
+        testCard1.setPointsFromCode(1);
+        testCard1.setPointsFromCode(2);
+        testCard1.setPointsFromCode(3);
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(1).toString().contains("Set difficulty of 'title1' to 'Easy'"));
+        assertTrue(l.get(2).toString().contains("Set difficulty of 'title1' to 'Medium'"));
+        assertTrue(l.get(3).toString().contains("Set difficulty of 'title1' to 'Hard'"));
+    }
+
+    @Test
+    public void testLogSetFavourite() {
+        el.clear();
+
+        testCard1.setIsFavourite(true);
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(1).toString().contains("Set favourite status of 'title1' to 'true'"));
+    }
+
+    @Test
+    public void testLogToggleFavourite() {
+        el.clear();
+
+        testCard1.setIsFavourite(true);
+        testCard1.toggleFavourite();
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(2).toString().contains("Toggled favourite status of 'title1' to 'false'"));
+    }
 }

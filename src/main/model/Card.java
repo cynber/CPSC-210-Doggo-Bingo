@@ -70,7 +70,6 @@ public class Card implements Writable {
     public void setTitle(String newTitle) {
         String oldTitle = title;
         title = newTitle;
-        EventLog.getInstance().logEvent(new Event("Edited title of '" + oldTitle + "' to '" + title + "'"));
     }
 
     // EFFECTS: returns the description
@@ -193,7 +192,7 @@ public class Card implements Writable {
     // EFFECTS: toggle the favourite status
     public void toggleFavourite() {
         isFavourite = !isFavourite;
-        EventLog.getInstance().logEvent(new Event("Toggled favourite status of'"
+        EventLog.getInstance().logEvent(new Event("Toggled favourite status of '"
                 + this.getTitle() + "' to '" + this.isFavourite + "'"));
     }
 

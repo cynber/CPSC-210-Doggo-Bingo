@@ -8,10 +8,14 @@ package model;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.junit.jupiter.api.Test;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CardDeck implements Writable {
     String deckName;

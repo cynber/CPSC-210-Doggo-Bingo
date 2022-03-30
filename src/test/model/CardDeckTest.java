@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,6 +25,8 @@ public class CardDeckTest {
     CardDeck testDeck2;
     CardDeck testDeck3;
     CardDeck testDeck4;
+
+    EventLog el;
 
     @BeforeEach
     public void setup() {
@@ -44,6 +47,8 @@ public class CardDeckTest {
 
         testDeck4 = new CardDeck();
         testDeck4.addCard(testCard1);
+
+        el = EventLog.getInstance();
     }
 
     @Test
@@ -175,6 +180,38 @@ public class CardDeckTest {
         assertEquals(otherDeck.get(0),thirdDeck.getCardIndex(0));
         assertEquals(otherDeck.get(1),thirdDeck.getCardIndex(1));
         assertEquals(otherDeck.get(2),thirdDeck.getCardIndex(2));
+    }
+
+    @Test
+    public void testLogAddCard() {
+        el.clear();
+        Card c1 = new Card("Hello");
+
+        testDeck1.addCard(c1);
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(1).toString().contains("Added Card 'Hello'"));
+    }
+
+    @Test
+    public void testLogClearDeck() {
+        el.clear();
+        testDeck1.clearDeck();
+
+        List<Event> l = new ArrayList<Event>();
+
+        EventLog el = EventLog.getInstance();
+        for (Event next : el) {
+            l.add(next);
+        }
+
+        assertTrue(l.get(1).toString().contains("Deck has been cleared"));
     }
 
 
