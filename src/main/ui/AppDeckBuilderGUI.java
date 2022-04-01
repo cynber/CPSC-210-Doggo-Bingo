@@ -76,7 +76,7 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                printLog(EventLog.getInstance());
+                printLog(EventLog.getInstance());                           // see references section for source
                 System.exit(0);
             }
         });
@@ -444,8 +444,6 @@ public class AppDeckBuilderGUI extends JFrame implements ActionListener {
             System.out.println(next.toString() + "\n\n");
         }
     }
-
-
 
 //    // MODIFIES: this
 //    // EFFECTS: changes the title of the deck

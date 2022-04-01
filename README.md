@@ -124,12 +124,14 @@ Used resources from:
 * The splash screen image has been designed using resources from Flaticon.com (https://www.flaticon.com/free-icon/bingo_2038237)
 
 ---
+---
 
 
 &nbsp;
 
-###User Stories P1:
+###Phase P1
 
+**User Stories:**
 * As a user, I want to be able to add an arbitrary number of items to my bingo board deck.
 * As a user, I want to be able to be able to edit the description of each card.
 * As a user, I want to be able to toggle favourite status of each card.
@@ -137,28 +139,30 @@ Used resources from:
 * As a user, I want to be able to view the titles of the items added so far.
 
 
-###User Stories P2:
+###Phase P2
 
+**User Stories:**
 * As a user, I want to be able to save my deck building progress to a file
 * As a user, I want to be able to load my deck building progress from a file
 * As a user, I want to be able to load a custom preset deck of cards from a file
 
-###Selected User Stories for P3:
+###Phase P3
 
+**Selected User Stories:**
 * As a user, I want to be able to use the GUI to add a card to the deck
 * As a user, I want to be able to use the GUI to edit a card's description, difficulty and favourite status
 * As a user, I want to be able to use the GUI to save my deck building progress to a file
 * As a user, I want to be able to use the GUI to load my deck building progress from a file
 * As a user, I want to be able to use the GUI to load a custom preset deck of cards from a file
 
-###Selected User Stories for P4:
+###Phase P4
 
+**Selected User Stories:**
 * As a user, I want to be able to log when a card is added to the deck
 * As a user, I want to be able to log when the deck is cleared
 * As a user, I want to be able to log when a card is edited
 
 ####Phase 4: Task 2
-
 
 Tue Mar 29 17:50:37 PDT 2022
 Added Card 'Apple'
@@ -190,3 +194,16 @@ Set favourite status of 'Nectarine' to 'true'
 
 
 Process finished with exit code 0
+
+####Phase 4: Task 3
+
+A lot of this project was built while I was still learning about Java. If I had gone through more of the course 
+materials before starting the project, I would likely have refactored my project differently. A few of the classes 
+are currently commented out, and I would likely have structured my project differently to minimize duplication. In 
+particular, I would have used proper exceptions to handle the duplicate errors that a user could generate. I would 
+also have redesigned the UI classes so that the various viewing and editing windows would either fall under a 
+superclass, or they would be put into the main DeckBuilder class entirely. I also considered potentially refactoring 
+to have AppDeckBuilderGUI and BingoGameGUI be under a superclass, but I wanted to add functionality so that the 
+programs can be run independently in the future. I would like the user to be able to choose to either make a deck, 
+or to play the game out of the decks that were already made. This functionality, and other future functionality, 
+made it so that I want to keep these classes separate.

@@ -29,14 +29,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
 
-public class SplashScreenGUI extends JFrame {
+public class SplashScreen extends JFrame {
     private static final ImageIcon IMAGE_ICON = new ImageIcon("./data/image/imageSplashScreen800Glow.png");
     private static final int WIDTH = IMAGE_ICON.getIconWidth();
     private static final int HEIGHT = IMAGE_ICON.getIconHeight();
     private static final int TIME = 1000;
 
     // EFFECTS: runs the splash screen to display image
-    public SplashScreenGUI(String title) {
+    public SplashScreen(String title) {
         super(title);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);

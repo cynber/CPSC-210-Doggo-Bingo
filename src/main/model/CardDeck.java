@@ -173,7 +173,7 @@ public class CardDeck implements Writable {
         cardList = cl;
     }
 
-    //EFFECTS: clears the deck
+    //EFFECTS: clears the deck and logs this event in EventLog
     public void clearDeck() {
         cardList = new ArrayList<Card>();
         EventLog.getInstance().logEvent(new Event("Deck has been cleared."));

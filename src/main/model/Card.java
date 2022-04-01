@@ -80,7 +80,7 @@ public class Card implements Writable {
     /*
      * REQUIRES: newDescription has length > 0
      * MODIFIES: this
-     * EFFECTS: title is set to newDescription
+     * EFFECTS: sets description to newDescription and logs this event in EventLog
      */
     public void setDescription(String newDescription) {
         description = newDescription;
@@ -136,7 +136,8 @@ public class Card implements Writable {
      * REQUIRES: points must be an integer 1, 2, or 3
      * MODIFIES: this
      * EFFECTS: changes the pointsWorth value to EASY_WORTH,
-       MED_WORTH, or HARD_WORTH for 1, 2, or 3 respectively
+       MED_WORTH, or HARD_WORTH for 1, 2, or 3 respectively,
+        and logs this event in EventLog
      */
     public void setPointsFromCode(int points) {
         if (points == 1) {
@@ -171,7 +172,7 @@ public class Card implements Writable {
 
     /*
      * MODIFIES: this
-     * EFFECTS: isFavourite is set to newIsFavourite
+     * EFFECTS: sets isFavourite to newIsFavourite and logs this event in EventLog
      */
     public void setIsFavourite(Boolean newIsFavourite) {
         isFavourite = newIsFavourite;
@@ -189,7 +190,7 @@ public class Card implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: toggle the favourite status
+    // EFFECTS: toggles the favourite status and logs this event in EventLog
     public void toggleFavourite() {
         isFavourite = !isFavourite;
         EventLog.getInstance().logEvent(new Event("Toggled favourite status of '"
