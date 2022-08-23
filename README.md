@@ -2,7 +2,7 @@
 
 ## A Custom bingo Game
 
-![Game Logo](httpshttps://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/ImageSplashScreen800Glow.png)
+![Game Logo](https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/ImageSplashScreen800Glow.png)
 
 ---
 
