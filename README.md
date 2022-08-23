@@ -2,9 +2,7 @@
 
 ## A Custom bingo Game
 
-![Game Logo](https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/ImageSplashScreen800Glow.png)
-
-<img src="https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/ImageSplashScreen800Glow.png" alt="Game Logo" width="200"/>
+<img src="https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/ImageSplashScreen800Glow.png" alt="Game Logo" width="600"/>
 
 ---
 
@@ -22,6 +20,10 @@ a board with around 24<sup>1</sup> of those items for players to play with. The 
 the board and save their progress to a file. The player can also export an image of the board to share with others.
 
 **Gameplay Examples**
+
+<img src="https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/gameplay_1.jpg" alt="Gameplay Image 1" width="600"/>
+<img src="https://github.com/cynber/CPSC-210-Doggo-Bingo/blob/master/data/image/gameplay_2.jpg" alt="Gameplay Image 2" width="600"/>
+
 - Item Spotting Boards
     - **Solo Play:** Player will make a list of things<sup>2</sup> that they hope to spot. The player wins when they
       have spotted enough items based on the game type<sup>3</sup>.
